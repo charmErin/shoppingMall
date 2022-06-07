@@ -1,0 +1,84 @@
+* {
+    border-collapse: collapse;
+    margin: 0px;
+    padding: 0px;
+    text-decoration: none;
+    color: black;
+    list-style: none;
+}
+
+.intro_bg {
+    width: 100%;
+    height: auto;
+    background-color: rgba(0,0,0,0.1);
+}
+
+.header {
+    display: flex;
+    width: 1280px;
+    height: 90px;
+    margin: auto;
+}
+
+.search_area {
+    width: 350px;
+    height: 40px;
+    background-color: rgba(0,0,0,0.8);
+    border-radius: 20px;
+    margin-top: 24px;
+}
+
+.search_area > form > img {
+    width: 25px;
+    height: 25px;
+    padding-left: 10px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.search_area > form > input {
+    outline: none;
+    border: none;
+    background-color: rgba(0,0,0,0);
+    color: #fff;
+    width: 250px;
+    height: 40px;
+
+}
+
+.nav {
+    display: flex;
+    justify-content: flex-start;
+    margin: auto 30px;
+    width: 800px;
+}
+
+.nav li {
+    padding: 0px;
+    flex: 1;
+    text-align: center;
+}
+
+.nav li a {
+    color: #000;
+    font-weight: bolder;
+    font-size: larger;
+}
+
+.btn {
+    display: flex;
+    justify-content: flex-end;
+    margin: auto;
+}
+
+.btn li {
+    width: 90px;
+    flex: 1;
+    font-weight: bolder;
+    font-size: larger;
+    vertical-align: middle;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+/* header_css 완료 */
