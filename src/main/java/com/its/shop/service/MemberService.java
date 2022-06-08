@@ -33,4 +33,8 @@ public class MemberService {
         memberRepository.update(memberDTO);
         return memberRepository.findById(memberDTO.getId());
     }
+
+    public void delete(Long id) {
+        memberRepository.delete(id);
+    }
 }

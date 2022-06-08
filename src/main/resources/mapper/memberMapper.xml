@@ -25,4 +25,8 @@
         update chick_member set memberZipCode=#{memberZipCode}, memberAddress=#{memberAddress}, memberAddDetail=#{memberAddDetail}, memberEmail=#{memberEmail}, memberMobile=#{memberMobile}
                 where id=#{id}
     </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from chick_member where id=#{id}
+    </delete>
 </mapper>

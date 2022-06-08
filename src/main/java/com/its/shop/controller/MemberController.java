@@ -80,4 +80,15 @@ public class MemberController {
         model.addAttribute("member", member);
         return "member/detail";
     }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam("id") Long id, HttpSession session) {
+        memberService.delete(id);
+        if (!session.getAttribute("memberName").equals("관리자")){
+            session.invalidate();
+            return "index";
+        } else {
+            return "redirect:/member/findAll";
+        }
+    }
 }
