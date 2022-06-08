@@ -12,6 +12,6 @@
 </head>
 <body>
 <jsp:include page="./layout/header.jsp" flush="false"></jsp:include>
-    첫화면
+    MainPage 첫화면
 </body>
 </html>
