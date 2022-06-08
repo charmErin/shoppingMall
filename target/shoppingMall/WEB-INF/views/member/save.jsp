@@ -64,8 +64,8 @@
             <div class="d-grid gap-2 col-12 mx-auto signButton">
                 <input type="button" onclick="mSave()" class="btn btn-warning btn-lg" style="background-color: rgb(249, 210, 39);" value="회원가입">
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 
 </div>
 </div>

@@ -24,4 +24,13 @@ public class MemberService {
     public List<MemberDTO> findAll() {
         return memberRepository.findAll();
     }
+
+    public MemberDTO findById(Long id) {
+        return memberRepository.findById(id);
+    }
+
+    public MemberDTO update(MemberDTO memberDTO) {
+        memberRepository.update(memberDTO);
+        return memberRepository.findById(memberDTO.getId());
+    }
 }

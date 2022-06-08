@@ -5,10 +5,7 @@ import com.its.shop.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -40,9 +37,13 @@ public class MemberController {
     public String login(@ModelAttribute MemberDTO memberDTO,
                         HttpSession session){
         MemberDTO member = memberService.login(memberDTO);
-        session.setAttribute("id", member.getId());
-        session.setAttribute("memberName", member.getMemberName());
-        return "index";
+        if (member != null) {
+            session.setAttribute("id", member.getId());
+            session.setAttribute("memberName", member.getMemberName());
+            return "index";
+        } else {
+            return "member/login";
+        }
     }
 
     @GetMapping("/logout")
@@ -56,5 +57,27 @@ public class MemberController {
         List<MemberDTO> memberDTOList = memberService.findAll();
         model.addAttribute("memberList", memberDTOList);
         return "member/list";
+    }
+
+    @GetMapping("/detail")
+    public String findById(@RequestParam("id") Long id, Model model){
+        MemberDTO member = memberService.findById(id);
+        model.addAttribute("member", member);
+        return "member/detail";
+    }
+
+    @GetMapping("/update-form")
+    public String updateForm(@RequestParam("id") Long id, Model model){
+        MemberDTO member = memberService.findById(id);
+        model.addAttribute("member", member);
+        return "member/update";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute MemberDTO memberDTO, Model model) {
+        MemberDTO member = memberService.update(memberDTO);
+        System.out.println("memberDTO = " + memberDTO);
+        model.addAttribute("member", member);
+        return "member/detail";
     }
 }

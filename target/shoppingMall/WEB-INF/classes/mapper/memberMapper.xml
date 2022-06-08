@@ -16,4 +16,13 @@
     <select id="findAll" resultType="member">
         select * from chick_member where memberId NOT IN ("admin")
     </select>
+
+    <select id="findById" parameterType="Long" resultType="member">
+        select * from chick_member where id=#{id}
+    </select>
+
+    <update id="update" parameterType="member">
+        update chick_member set memberZipCode=#{memberZipCode}, memberAddress=#{memberAddress}, memberAddDetail=#{memberAddDetail}, memberEmail=#{memberEmail}, memberMobile=#{memberMobile}
+                where id=#{id}
+    </update>
 </mapper>

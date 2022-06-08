@@ -72,7 +72,7 @@
     }
 
     const memberDetail = () => {
-        location.href = "/member/detail?id=${sessionScope.memberId}";
+        location.href = "/member/detail?id=${sessionScope.id}";
     }
 
     const memberLogout = () => {
