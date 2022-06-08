@@ -3,8 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-<!--        <typeAlias type="com.its.shop.dto.ClientDTO" alias="Client"/>-->
-<!--        <typeAlias type="com.its.shop.dto.AdminDTO" alias="Admin"/>-->
-<!--        <typeAlias type="com.its.shop.dto.ItemDTO" alias="Item"/>-->
+        <typeAlias type="com.its.shop.dto.MemberDTO" alias="member"/>
+<!--        <typeAlias type="com.its.shop.dto.AdminDTO" alias="admin"/>-->
+<!--        <typeAlias type="com.its.shop.dto.ItemDTO" alias="item"/>-->
     </typeAliases>
 </configuration>
