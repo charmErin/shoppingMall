@@ -14,4 +14,8 @@ public class MemberService {
     public void save(MemberDTO memberDTO) {
         memberRepository.save(memberDTO);
     }
+
+    public MemberDTO login(MemberDTO memberDTO) {
+        return memberRepository.login(memberDTO);
+    }
 }

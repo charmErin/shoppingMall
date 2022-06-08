@@ -51,7 +51,7 @@
     display: flex;
     justify-content: flex-start;
     margin: 0 150px;
-    width: 400px;
+    width: 350px;
 }
 
 .nav li {
@@ -69,9 +69,10 @@
 
 .btn {
     display: flex;
-    width: 170px;
+    width: 270px;
+    text-align: center;
     justify-content: flex-end;
-    margin: auto 0 auto 80px;
+    margin: auto 20px;
     outline: none;
 }
 

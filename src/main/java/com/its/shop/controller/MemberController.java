@@ -24,12 +24,28 @@ public class MemberController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute MemberDTO memberDTO,
-                       HttpSession session) {
+    public String save(@ModelAttribute MemberDTO memberDTO) {
         memberService.save(memberDTO);
-        session.setAttribute("id", memberDTO.getId());
-        session.setAttribute("memberName", memberDTO.getMemberName());
+        return "member/login";
+    }
+
+    @GetMapping("/login-form")
+    public String loginForm() {
+        return "member/login";
+    }
+
+    @PostMapping("/login")
+    public String login(@ModelAttribute MemberDTO memberDTO,
+                        HttpSession session){
+        MemberDTO member = memberService.login(memberDTO);
+        session.setAttribute("id", member.getId());
+        session.setAttribute("memberName", member.getMemberName());
         return "index";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "index";
+    }
 }

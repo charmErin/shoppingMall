@@ -31,13 +31,16 @@
             </ul>
 
             <c:choose>
-                <c:when test="${sessionScope.memberName eq ''}">
+                <c:when test="${sessionScope.memberName ne null}">
                     <ul class="btn">
+                        <li>${sessionScope.memberName}</li>
                         <li onclick="memberDetail()">마이페이지</li>
+                        <li onclick="memberLogout()">로그아웃</li>
                     </ul>
                 </c:when>
                 <c:otherwise>
                     <ul class="btn">
+                        <li></li>
                         <li onclick="loginForm()">로그인</li>
                         <li onclick="memberSave()">회원가입</li>
                     </ul>
@@ -49,7 +52,7 @@
 </body>
 <script>
     const loginForm = () => {
-        location.href = "/member/login";
+        location.href = "/member/login-form";
     }
 
     const memberSave = () => {
@@ -57,7 +60,11 @@
     }
 
     const memberDetail = () => {
-        location.href = "member/detail?id=${sessionScope.memberId}";
+        location.href = "/member/detail?id=${sessionScope.memberId}";
+    }
+
+    const memberLogout = () => {
+        location.href = "/member/logout";
     }
 </script>
 </html>
