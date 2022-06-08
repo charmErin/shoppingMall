@@ -12,4 +12,8 @@
     <select id="login" parameterType="member" resultType="member">
         select * from chick_member where memberId=#{memberId} and memberPassword=#{memberPassword}
     </select>
+
+    <select id="findAll" resultType="member">
+        select * from chick_member where memberId NOT IN ("admin")
+    </select>
 </mapper>

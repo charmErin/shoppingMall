@@ -25,18 +25,30 @@
 
             <ul class="nav">
                 <li><a href="/">HOME</a></li>
-                <li><a href="#">MEN</a></li>
-                <li><a href="#">WOMEN</a></li>
-                <li><a href="#">SALE</a></li>
+                <li><a href="#">TOP</a></li>
+                <li><a href="#">BOTTOM</a></li>
+                <li><a href="#">SHOES</a></li>
+                <li><a href="#">ACC</a></li>
             </ul>
 
             <c:choose>
                 <c:when test="${sessionScope.memberName ne null}">
-                    <ul class="btn">
-                        <li>${sessionScope.memberName}</li>
-                        <li onclick="memberDetail()">마이페이지</li>
-                        <li onclick="memberLogout()">로그아웃</li>
-                    </ul>
+                    <c:choose>
+                        <c:when test="${sessionScope.memberName ne '관리자'}">
+                            <ul class="btn">
+                                <li>${sessionScope.memberName}</li>
+                                <li onclick="memberDetail()">마이페이지</li>
+                                <li onclick="memberLogout()">로그아웃</li>
+                            </ul>
+                        </c:when>
+                        <c:otherwise>
+                            <ul class="btn">
+                                <li>${sessionScope.memberName}</li>
+                                <li onclick="memberList()">회원목록</li>
+                                <li onclick="memberLogout()">로그아웃</li>
+                            </ul>
+                        </c:otherwise>
+                    </c:choose>
                 </c:when>
                 <c:otherwise>
                     <ul class="btn">
@@ -65,6 +77,10 @@
 
     const memberLogout = () => {
         location.href = "/member/logout";
+    }
+
+    const memberList = () => {
+        location.href = "/member/findAll";
     }
 </script>
 </html>
