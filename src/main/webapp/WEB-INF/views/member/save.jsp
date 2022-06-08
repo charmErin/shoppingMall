@@ -54,7 +54,7 @@
             <input type="email" name="memberEmail" maxlength="30">
             <p></p>
 
-            휴대전화('-' 미포함)<br>
+            휴대전화('-' 포함)<br>
             <input type="text" id="userMobile" maxlength="15" name="memberMobile" onblur="mobileCheck()" placeholder="01012345678" required>
 
             <button type="button" class="btn" onclick="mobileCertify()" style="background-color: rgb(225, 151, 39); border-color: white;">&nbsp;인증번호받기&nbsp;</button>
@@ -116,7 +116,7 @@
 
     function mobileCheck() {
         const userMobile = document.getElementById("userMobile").value;
-        const exp = /^\d{3}\d{4}\d{4}$/
+        const exp = /^\d{3}-\d{4}-\d{4}$/
         const mobileCheck = document.getElementById("mobile-check");
 
         if(userMobile.match(exp)) {

@@ -25,10 +25,10 @@
 
             <ul class="nav">
                 <li><a href="/">HOME</a></li>
-                <li><a href="#">TOP</a></li>
-                <li><a href="#">BOTTOM</a></li>
-                <li><a href="#">SHOES</a></li>
-                <li><a href="#">ACC</a></li>
+                <li><a href="/goods/top">TOP</a></li>
+                <li><a href="/goods/bottom">BOTTOM</a></li>
+                <li><a href="/goods/shoes">SHOES</a></li>
+                <li><a href="/goods/acc">ACC</a></li>
             </ul>
 
             <c:choose>
@@ -43,7 +43,7 @@
                         </c:when>
                         <c:otherwise>
                             <ul class="btn">
-                                <li>${sessionScope.memberName}</li>
+                                <li onclick="goodsSave()">상품등록</li>
                                 <li onclick="memberList()">회원목록</li>
                                 <li onclick="memberLogout()">로그아웃</li>
                             </ul>
@@ -81,6 +81,11 @@
 
     const memberList = () => {
         location.href = "/member/findAll";
+    }
+
+//    admin 전용
+    const goodsSave = () => {
+        location.href = "/goods/save-form";
     }
 </script>
 </html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Goods">
+    <insert id="save" parameterType="goods">
+        insert into chick_goods (goodsCategory, goodsName, goodsDetail, goodsPrice, goodsStock, goodsFileName1, goodsFileName2)
+            values (#{goodsCategory}, #{goodsName}, #{goodsDetail}, #{goodsPrice}, #{goodsStock}, #{goodsFileName1}, #{goodsFileName2})
+    </insert>
+
+    <select id="list" parameterType="int" resultType="goods">
+        select * from chick_goods where goodsCategory=#{goodCategory}
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
