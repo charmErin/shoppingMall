@@ -25,6 +25,10 @@
     <select id="search" parameterType="String" resultType="goods">
         select * from chick_goods where goodsName like concat('%', #{search}, '%') order by goodsSailCount desc;
     </select>
+
+    <delete id="delete" parameterType="Long">
+        delete from chick_goods where id=#{id}
+    </delete>
 </mapper>
 
 

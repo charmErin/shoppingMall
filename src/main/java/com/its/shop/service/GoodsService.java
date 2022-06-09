@@ -76,4 +76,8 @@ public class GoodsService {
     public List<GoodsDTO> search(String search) {
         return goodsRepository.search(search);
     }
+
+    public void delete(Long id) {
+        goodsRepository.delete(id);
+    }
 }

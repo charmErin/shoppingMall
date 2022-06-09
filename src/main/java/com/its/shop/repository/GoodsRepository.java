@@ -35,4 +35,8 @@ public class GoodsRepository {
     public List<GoodsDTO> search(String search) {
         return sql.selectList("Goods.search", search);
     }
+
+    public void delete(Long id) {
+        sql.delete("Goods.delete", id);
+    }
 }

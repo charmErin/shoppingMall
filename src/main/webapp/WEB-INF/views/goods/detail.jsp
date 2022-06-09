@@ -34,7 +34,8 @@
         <c:if test="${sessionScope.memberName eq '관리자'}">
             <tr>
                 <td></td>
-                <td onclick="goodsUpdate()">수정</td>
+                <td><button onclick="goodsUpdate()">수정</button>
+                    <button onclick="goodsDelete('${goods.goodsCategory}', '${goods.id}')">삭제</button></td>
             </tr>
         </c:if>
     </table>
@@ -42,6 +43,12 @@
 <script>
     const goodsUpdate = () => {
         location.href = "/goods/update-form?id=${goods.id}";
+    }
+
+    const goodsDelete = (category, id) => {
+        if (confirm("삭제하시겠습니까?")) {
+            location.href = "/goods/delete?category=" + category + "&id=" + id;
+        }
     }
 </script>
 </html>

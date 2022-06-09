@@ -87,4 +87,11 @@ public class GoodsController {
         return "goods/search";
     }
 
+    @GetMapping("/delete")
+    public String delete(@RequestParam("category") int category,
+                         @RequestParam("id") Long id) {
+        goodsService.delete(id);
+        return "redirect:/goods/" + category;
+    }
+
 }
