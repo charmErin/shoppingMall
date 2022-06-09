@@ -56,6 +56,7 @@
                 ${review.reviewHits}<br>
                 <c:if test="${sessionScope.memberId eq review.memberId}">
                     <button onclick="reviewUpdate('${review.goodsId}', '${review.id}','${review.reviewContents}')">리뷰수정</button>
+                    <button onclick="reviewDelete('${review.goodsId}', '${review.id}')">리뷰삭제</button>
                 </c:if>
             </div>
         </c:forEach>
@@ -93,6 +94,11 @@
 
     }
 
+    const reviewDelete = (goodsId, id) => {
+        if (confirm("삭제하시겠습니까?")) {
+            location.href = "/review/delete?goodsId=" + goodsId + "&id=" + id;
+        }
+    }
    <%-- const goodsDetail = () => {--%>
    <%--     const inner = document.getElementById("inner");--%>
    <%--     inner.innerHTML = "${goods.goodsDetail}";--%>

@@ -23,4 +23,8 @@ public class ReviewService {
     public void update(ReviewDTO reviewDTO) {
         reviewRepository.update(reviewDTO);
     }
+
+    public void delete(Long id) {
+        reviewRepository.delete(id);
+    }
 }

@@ -23,4 +23,8 @@ public class ReviewRepository {
     public void update(ReviewDTO reviewDTO) {
         sql.update("Review.update", reviewDTO);
     }
+
+    public void delete(Long id) {
+        sql.delete("Review.delete", id);
+    }
 }

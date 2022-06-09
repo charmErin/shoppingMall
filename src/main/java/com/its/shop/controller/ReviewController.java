@@ -33,4 +33,10 @@ public class ReviewController {
         return "redirect:/goods/detail?id=" + reviewDTO.getGoodsId();
     }
 
+    @GetMapping("/delete")
+    public String delete(@RequestParam Long goodsId,
+                         @RequestParam Long id) {
+        reviewService.delete(id);
+        return "redirect:/goods/detail?id=" + goodsId;
+    }
 }
