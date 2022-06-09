@@ -45,4 +45,31 @@ public class GoodsService {
     public List<GoodsDTO> list(int goodsCategory) {
         return goodsRepository.list(goodsCategory);
     }
+
+    public GoodsDTO findById(Long id) {
+        return goodsRepository.findById(id);
+    }
+
+    public void update(GoodsDTO goodsDTO) throws IOException {
+        MultipartFile goodsFile1 = goodsDTO.getGoodsFile1();
+
+        if (!goodsFile1.isEmpty()){
+            String goodsFileName1 = goodsFile1.getOriginalFilename();
+            goodsFileName1 = System.currentTimeMillis() + "-" + goodsFileName1;
+            String savePath1 = "D:\\shop_img\\" + goodsFileName1;
+            goodsFile1.transferTo(new File(savePath1));
+            goodsDTO.setGoodsFileName1(goodsFileName1);
+        }
+
+        MultipartFile goodsFile2 = goodsDTO.getGoodsFile2();
+
+        if (!goodsFile2.isEmpty()){
+            String goodsFileName2 = goodsFile2.getOriginalFilename();
+            goodsFileName2 = System.currentTimeMillis() + "-" + goodsFileName2;
+            String savePath2 = "D:\\shop_img\\" + goodsFileName2;
+            goodsFile2.transferTo(new File(savePath2));
+            goodsDTO.setGoodsFileName2(goodsFileName2);
+        }
+        goodsRepository.update(goodsDTO);
+    }
 }

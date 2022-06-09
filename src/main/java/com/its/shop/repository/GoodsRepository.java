@@ -23,4 +23,12 @@ public class GoodsRepository {
     public List<GoodsDTO> list(int goodsCategory) {
         return sql.selectList("Goods.list", goodsCategory);
     }
+
+    public GoodsDTO findById(Long id) {
+        return sql.selectOne("Goods.findById", id);
+    }
+
+    public void update(GoodsDTO goodsDTO) {
+        sql.update("Goods.update", goodsDTO);
+    }
 }

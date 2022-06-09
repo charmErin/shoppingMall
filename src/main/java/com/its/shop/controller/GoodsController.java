@@ -28,35 +28,57 @@ public class GoodsController {
         return "index";
     }
 
-    @GetMapping("/top")
+    @GetMapping("/1")
     public String top(Model model) {
         int category = 1;
         List<GoodsDTO> goodsDTOList = goodsService.list(category);
         model.addAttribute("goodsList", goodsDTOList);
-        return "goods/list";
+        return "goods/top";
     }
 
-    @GetMapping("/bottom")
+    @GetMapping("/2")
     public String bottom(Model model) {
         int category = 2;
         List<GoodsDTO> goodsDTOList = goodsService.list(category);
         model.addAttribute("goodsList", goodsDTOList);
-        return "goods/list";
+        return "goods/bottom";
     }
 
-    @GetMapping("/shoes")
+    @GetMapping("/3")
     public String shoes(Model model) {
         int category = 3;
         List<GoodsDTO> goodsDTOList = goodsService.list(category);
         model.addAttribute("goodsList", goodsDTOList);
-        return "goods/list";
+        return "goods/shoes";
     }
 
-    @GetMapping("/acc")
+    @GetMapping("/4")
     public String acc(Model model) {
         int category = 4;
         List<GoodsDTO> goodsDTOList = goodsService.list(category);
         model.addAttribute("goodsList", goodsDTOList);
-        return "goods/list";
+        return "goods/acc";
     }
+
+    @GetMapping("/detail")
+    public String findById(@RequestParam Long id, Model model) {
+        GoodsDTO goodsDTO = goodsService.findById(id);
+        model.addAttribute("goods", goodsDTO);
+        return "goods/detail";
+    }
+
+    @GetMapping("update-form")
+    public String updateForm (@RequestParam Long id, Model model) {
+        GoodsDTO goodsDTO = goodsService.findById(id);
+        model.addAttribute("goods", goodsDTO);
+        return "goods/update";
+    }
+
+    @PostMapping("update")
+    public String update(@ModelAttribute GoodsDTO goodsDTO, Model model) throws IOException {
+        goodsService.update(goodsDTO);
+        return "redirect:/goods/detail?id=" + goodsDTO.getId();
+    }
+
+
 }

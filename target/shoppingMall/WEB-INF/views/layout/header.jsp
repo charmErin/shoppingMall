@@ -10,7 +10,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="../../../resources/css/header.css"/>
-    <title>Title</title>
+    <title>CHICK</title>
 </head>
 <body>
 <header>
@@ -25,10 +25,10 @@
 
             <ul class="nav">
                 <li><a href="/">HOME</a></li>
-                <li><a href="/goods/top">TOP</a></li>
-                <li><a href="/goods/bottom">BOTTOM</a></li>
-                <li><a href="/goods/shoes">SHOES</a></li>
-                <li><a href="/goods/acc">ACC</a></li>
+                <li><a href="/goods/1">TOP</a></li>
+                <li><a href="/goods/2">BOTTOM</a></li>
+                <li><a href="/goods/3">SHOES</a></li>
+                <li><a href="/goods/4">ACC</a></li>
             </ul>
 
             <c:choose>

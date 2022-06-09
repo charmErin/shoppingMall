@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>CHICK</title>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
@@ -18,17 +18,21 @@
         ${goods.goodsName}<br>
         ${goods.goodsDetail}<br>
         <c:choose>
-            <c:when test="${goods.goodsDiscount ne 1}}">
-                ${goods.goodsPrice * goods.goodsDiscount}<br>
+            <c:when test="${goods.goodsDiscount ne 0.0}">
+                ${goods.goodsPrice * (1-goods.goodsDiscount)}원<br>
             </c:when>
             <c:otherwise>
-                ${goods.goodsPrice}<br>
+                ${goods.goodsPrice}원<br>
             </c:otherwise>
         </c:choose>
-        ${goods.goodsStock}<br>
-        <img src="${pageContext.request.contextPath}/upload/${goods.goodsFileName1}" height="200" width="200"><br>
-        <img src="${pageContext.request.contextPath}/upload/${goods.goodsFileName2}" height="200" width="200"><br>
+        <img src="${pageContext.request.contextPath}/upload/${goods.goodsFileName1}" height="200" width="200"
+                onclick="topDetail('${goods.id}')"><br>
         <br>
     </c:forEach>
 </body>
+<script>
+    const topDetail = (id) => {
+        location.href = "/goods/detail?id=" + id;
+    }
+</script>
 </html>

@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>CHICK</title>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>

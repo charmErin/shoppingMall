@@ -76,7 +76,6 @@ public class MemberController {
     @PostMapping("/update")
     public String update(@ModelAttribute MemberDTO memberDTO, Model model) {
         MemberDTO member = memberService.update(memberDTO);
-        System.out.println("memberDTO = " + memberDTO);
         model.addAttribute("member", member);
         return "member/detail";
     }
