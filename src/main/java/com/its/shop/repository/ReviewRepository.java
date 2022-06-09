@@ -1,6 +1,7 @@
 package com.its.shop.repository;
 
 import com.its.shop.dto.ReviewDTO;
+import com.its.shop.dto.ReviewHitsDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,5 +27,14 @@ public class ReviewRepository {
 
     public void delete(Long id) {
         sql.delete("Review.delete", id);
+    }
+
+    public void hitsUp(ReviewHitsDTO reviewHitsDTO) {
+        sql.insert("Review.hitsUp", reviewHitsDTO);
+        sql.update("Review.hitsCount", reviewHitsDTO);
+    }
+
+    public void hitsDown(ReviewHitsDTO reviewHitsDTO) {
+        sql.update("Review.hitsDown", reviewHitsDTO);
     }
 }

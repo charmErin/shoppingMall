@@ -50,10 +50,10 @@
         <span onclick="goodsReview()">상품리뷰</span><br>
         <c:forEach var="review" items="${reviewList}">
             <div id="reviewOne">
-                ${review.memberId}<br>
-                ${review.reviewContents}<br>
-                <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${review.reviewCreatedDate}"></fmt:formatDate><br>
-                ${review.reviewHits}<br>
+                회원아이디: ${review.memberId}<br>
+                내용: ${review.reviewContents}<br>
+                작성일: <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${review.reviewCreatedDate}"></fmt:formatDate><br>
+                추천수: ${review.reviewHits} <button id="hits" aria-pressed="false" onclick="reviewHitsUp('${review.id}','${review.memberId}')">추천하기▲</button><br>
                 <c:if test="${sessionScope.memberId eq review.memberId}">
                     <button onclick="reviewUpdate('${review.goodsId}', '${review.id}','${review.reviewContents}')">리뷰수정</button>
                     <button onclick="reviewDelete('${review.goodsId}', '${review.id}')">리뷰삭제</button>
@@ -99,6 +99,57 @@
             location.href = "/review/delete?goodsId=" + goodsId + "&id=" + id;
         }
     }
+
+    const reviewHitsUp = (reviewId, memberId) => {
+        const reviewOne = document.getElementById("reviewOne");
+        const hitsCondition = document.getElementById("hits");
+        const id = '${sessionScope.memberId}';
+        if (hitsCondition.ariaPressed === "false") {
+            console.log("if문 false 실행 OK");
+            hitsCondition.ariaPressed = "true";
+
+            $.ajax({
+                type: "get",
+                url: "/review/hitsUp",
+                data: {"reviewId": reviewId, "memberId": memberId},
+                dataType: "json",
+                success: function (result) {
+                    for (let i in result){
+                        reviewOne.innerHTML = "회원아이디: " + result[i].memberId + "<br>"
+                                            + "내용: " + result[i].reviewContents + "<br>"
+                                            + "작성일: " + result[i].reviewCreatedDate + "<br>"
+                                            + '추천수: ' + result[i].reviewHits + '<button id="hits" aria-pressed="true" onclick="reviewHitsUp(' + result[i].id + "," + result[i].memberId + ")'>추천하기▲</button><br>"
+                                            + 'if (${sessionScope.memberId == result[i].memberId}) {'
+                                            + '<button onclick="reviewUpdate(' + ${goods.id} + ',' + result[i].id + ',' + result[i].reviewContents + ')">리뷰수정</button><br>'
+                                            + '<button onclick="reviewDelete(' + ${goods.id} + ',' + result[i].id + ')">리뷰삭제</button>}';
+                    }
+                }
+            });
+        } else {
+            console.log("if문 true 실행 OK");
+            hitsCondition.ariaPressed = "false";
+
+            $.ajax({
+                type: "get",
+                url: "/review/hitsDown",
+                data: {"id": id, "reviewId": reviewId, "memberId": memberId},
+                dataType: "json",
+                success: function (result) {
+                    for (let i in result){
+                        reviewOne.innerHTML = "회원아이디: " + result[i].memberId + "<br>"
+                            + "내용: " + result[i].reviewContents + "<br>"
+                            + "작성일: " + result[i].reviewCreatedDate + "<br>"
+                            + '추천수: ' + result[i].reviewHits + '<button id="hits" aria-pressed="true" onclick="reviewHitsUp(' + result[i].id + "," + result[i].memberId + ")'>추천하기▲</button><br>"
+                            + 'if (${sessionScope.memberId == result[i].memberId}) {'
+                            + '<button onclick="reviewUpdate(' + ${goods.id} + ',' + result[i].id + ',' + result[i].reviewContents + ')">리뷰수정</button><br>'
+                            + '<button onclick="reviewDelete(' + ${goods.id} + ',' + result[i].id + ')">리뷰삭제</button>}';
+                    }
+                }
+            });
+        }
+    }
+
+
    <%-- const goodsDetail = () => {--%>
    <%--     const inner = document.getElementById("inner");--%>
    <%--     inner.innerHTML = "${goods.goodsDetail}";--%>

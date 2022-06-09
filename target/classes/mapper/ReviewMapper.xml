@@ -20,4 +20,18 @@
     <delete id="delete" parameterType="Long">
         delete from chick_review where id=#{id}
     </delete>
+
+    <insert id="hitsUp" parameterType="reviewHits">
+        insert into chick_reviewHits (reviewId, memberId, reviewHits)
+            values (#{reviewId}, #{memberId}, 1)
+    </insert>
+
+    <update id="hitsCount" parameterType="review">
+        update chick_review set reviewHits=(select count(id) from chick_reviewHits where reviewId=#{reviewId})
+            where id=#{id}
+    </update>
+
+    <update id="hitsDown" parameterType="reviewHits">
+        update chick_reviewHits set reviewHits=reviewHits-1 where id=#{id} and reviewId=#{reviewId} and memberId=#{memberId}
+    </update>
 </mapper>

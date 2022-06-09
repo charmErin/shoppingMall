@@ -1,6 +1,7 @@
 package com.its.shop.controller;
 
 import com.its.shop.dto.ReviewDTO;
+import com.its.shop.dto.ReviewHitsDTO;
 import com.its.shop.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,4 +40,18 @@ public class ReviewController {
         reviewService.delete(id);
         return "redirect:/goods/detail?id=" + goodsId;
     }
+
+    @GetMapping("/hitsUp")
+    public @ResponseBody List<ReviewDTO> hitsUp(@ModelAttribute ReviewHitsDTO reviewHitsDTO) {
+        reviewService.hitsUp(reviewHitsDTO);
+        return reviewService.findAll(reviewHitsDTO.getReviewId());
+    }
+
+    @GetMapping("/hitsDown")
+    public @ResponseBody List<ReviewDTO> hitsDown(@ModelAttribute ReviewHitsDTO reviewHitsDTO) {
+        reviewService.hitsDown(reviewHitsDTO);
+        return reviewService.findAll(reviewHitsDTO.getReviewId());
+
+    }
+
 }
