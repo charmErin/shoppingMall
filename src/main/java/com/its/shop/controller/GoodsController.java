@@ -1,7 +1,9 @@
 package com.its.shop.controller;
 
 import com.its.shop.dto.GoodsDTO;
+import com.its.shop.dto.ReviewDTO;
 import com.its.shop.service.GoodsService;
+import com.its.shop.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,9 @@ import java.util.List;
 public class GoodsController {
     @Autowired
     private GoodsService goodsService;
+
+    @Autowired
+    private ReviewService reviewService;
 
     @GetMapping("/save-form")
     public String saveForm() {
@@ -64,6 +69,8 @@ public class GoodsController {
     public String findById(@RequestParam Long id, Model model) {
         GoodsDTO goodsDTO = goodsService.findById(id);
         model.addAttribute("goods", goodsDTO);
+        List<ReviewDTO> reviewDTOList = reviewService.findAll(id);
+        model.addAttribute("reviewList", reviewDTOList);
         return "goods/detail";
     }
 

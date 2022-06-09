@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Review">
+    <insert id="save" parameterType="review">
+        insert into chick_review (goodsId, memberId, reviewContents)
+            values (#{goodsId}, #{memberId}, #{reviewContents})
+    </insert>
+
+    <select id="findAll" parameterType="Long" resultType="review">
+        select * from chick_review where goodsId=#{goodsId} order by id desc
+    </select>
+
+    <update id="update" parameterType="review">
+        update chick_review set reviewContents=#{reviewContents} where id=#{id}
+    </update>
+</mapper>
