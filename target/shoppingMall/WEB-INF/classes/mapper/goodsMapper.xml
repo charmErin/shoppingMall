@@ -10,7 +10,7 @@
     </insert>
 
     <select id="list" parameterType="int" resultType="goods">
-        select * from chick_goods where goodsCategory=#{goodCategory}
+        select * from chick_goods where goodsCategory=#{goodCategory} order by id desc;
     </select>
 
     <select id="findById" parameterType="Long" resultType="goods">
@@ -21,6 +21,10 @@
         update chick_goods set goodsCategory=#{goodsCategory}, goodsName=#{goodsName}, goodsDetail=#{goodsDetail}, goodsStock=#{goodsStock}, goodsDiscount=#{goodsDiscount} ,goodsFileName1=#{goodsFileName1}, goodsFileName2=#{goodsFileName2}
                 where id=#{id}
     </update>
+
+    <select id="search" parameterType="String" resultType="goods">
+        select * from chick_goods where goodsName like concat('%', #{search}, '%') order by goodsSailCount desc;
+    </select>
 </mapper>
 
 

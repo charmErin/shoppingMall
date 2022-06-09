@@ -12,6 +12,9 @@
 </head>
 <body>
 <jsp:include page="./layout/header.jsp" flush="false"></jsp:include>
-    MainPage 첫화면
+    <p id="text0">MainPage 첫화면</p>
 </body>
+<script>
+
+</script>
 </html>

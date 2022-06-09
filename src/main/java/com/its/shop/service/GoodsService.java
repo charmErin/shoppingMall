@@ -72,4 +72,8 @@ public class GoodsService {
         }
         goodsRepository.update(goodsDTO);
     }
+
+    public List<GoodsDTO> search(String search) {
+        return goodsRepository.search(search);
+    }
 }

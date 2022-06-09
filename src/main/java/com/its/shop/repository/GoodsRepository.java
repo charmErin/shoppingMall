@@ -31,4 +31,8 @@ public class GoodsRepository {
     public void update(GoodsDTO goodsDTO) {
         sql.update("Goods.update", goodsDTO);
     }
+
+    public List<GoodsDTO> search(String search) {
+        return sql.selectList("Goods.search", search);
+    }
 }

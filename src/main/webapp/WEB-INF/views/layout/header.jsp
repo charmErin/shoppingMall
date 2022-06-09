@@ -17,8 +17,8 @@
     <div class="intro_bg">
         <div class="header">
             <div class="search_area">
-                <form action="" method="get">
-                    <img src="../../../resources/img/search_icon.png">
+                <form action="/goods/search" method="get" name="searchForm">
+                    <img onclick="goodsSearch()" src="../../../resources/img/search_icon.png">
                     <input type="search" name="search" placeholder="검색">
                 </form>
             </div>
@@ -81,6 +81,10 @@
 
     const memberList = () => {
         location.href = "/member/findAll";
+    }
+
+    const goodsSearch = () => {
+        searchForm.submit();
     }
 
 //    admin 전용

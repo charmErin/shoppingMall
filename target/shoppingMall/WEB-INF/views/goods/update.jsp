@@ -57,8 +57,8 @@
         <input type="text" name="goodsStock" value="${goods.goodsStock}"><br>
         현재상품사진1: <br>
         <img src="${pageContext.request.contextPath}/upload/${goods.goodsFileName1}" height="200" width="200"><br>
-        변경할 상품사진1: <input type="file" name="goodsFile1"><br>
         <input type="hidden" name="goodsFileName1" value="${goods.goodsFileName1}">
+        변경할 상품사진1: <input type="file" name="goodsFile1"><br>
         현재상품사진2: <br>
         <img src="${pageContext.request.contextPath}/upload/${goods.goodsFileName2}" height="200" width="200"><br>
         <input type="hidden" name="goodsFileName2" value="${goods.goodsFileName2}">

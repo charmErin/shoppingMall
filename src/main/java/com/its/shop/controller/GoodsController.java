@@ -80,5 +80,11 @@ public class GoodsController {
         return "redirect:/goods/detail?id=" + goodsDTO.getId();
     }
 
+    @GetMapping("/search")
+    public String search (@RequestParam String search, Model model) {
+        List<GoodsDTO> goodsDTOList = goodsService.search(search);
+        model.addAttribute("goodsList", goodsDTOList);
+        return "goods/search";
+    }
 
 }
