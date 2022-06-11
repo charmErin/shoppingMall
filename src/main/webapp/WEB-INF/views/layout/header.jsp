@@ -40,6 +40,7 @@
                     <c:choose>
                         <c:when test="${sessionScope.memberName ne '관리자'}">
                             <ul class="btn">
+                                <li></li>
                                 <li>${sessionScope.memberName}</li>
                                 <li><i class="bi bi-cart"></i></li>
                             </ul>
@@ -55,6 +56,7 @@
                 </c:when>
                 <c:otherwise>
                     <ul class="btn">
+                        <li></li>
                         <li onclick="loginForm()">로그인</li>
                         <li onclick="memberSave()">회원가입</li>
                     </ul>

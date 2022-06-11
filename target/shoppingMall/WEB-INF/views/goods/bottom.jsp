@@ -18,14 +18,14 @@
     ${goods.goodsName}<br>
     ${goods.goodsDetail}<br>
     <c:choose>
-        <c:when test="${goods.goodsDiscount ne 1}}">
-            ${goods.goodsPrice * (1-goods.goodsDiscount)}<br>
+        <c:when test="${goods.goodsDiscount ne 0.0}">
+            ${goods.goodsPrice * (1-goods.goodsDiscount)}원<br>
         </c:when>
         <c:otherwise>
-            ${goods.goodsPrice}<br>
+            ${goods.goodsPrice}원<br>
         </c:otherwise>
     </c:choose>
-    <img src="${pageContext.request.contextPath}/upload/${goods.goodsFileName1}" height="200" width="200"
+    <img src="${pageContext.request.contextPath}/upload/${goods.goodsFileName1}" height="400" width="400"
             onclick="bottomDetail('${goods.id}')"><br>
     <br>
 </c:forEach>

@@ -51,7 +51,7 @@
 .nav {
     display: flex;
     justify-content: flex-start;
-    margin: 0 100px;
+    margin: 0 50px 0 100px;
     width: 425px;
 }
 
@@ -70,7 +70,7 @@
 
 .btn {
     display: flex;
-    width: 180px;
+    width: 240px;
     text-align: center;
     justify-content: flex-end;
     margin: auto 0 auto 20px;
@@ -78,10 +78,13 @@
 }
 
 .btn li {
-    width: 80px;
     flex: 1;
+}
+
+.btn li:not(:first-child) {
+    width: 80px;
     vertical-align: middle;
-    cursor: pointer;
+    cursor:pointer;
 }
 
 .toggle_line {
