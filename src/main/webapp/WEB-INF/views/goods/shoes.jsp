@@ -20,7 +20,7 @@
             <c:forEach var="goods" items="${goodsList}">
             <span class="spanList">
                 <img src="${pageContext.request.contextPath}/upload/${goods.goodsFileName1}" height="350" width="350"
-                     onclick="accDetail('${goods.id}')"><br>
+                     onclick="shoesDetail('${goods.id}')"><br>
                     ${goods.goodsName}<br>
                     ${goods.goodsDetail}<br>
                 <c:choose>
