@@ -82,7 +82,6 @@
 }
 
 .btn li:not(:first-child) {
-    width: 80px;
     vertical-align: middle;
     cursor:pointer;
 }

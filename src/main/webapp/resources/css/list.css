@@ -1,0 +1,31 @@
+* {
+    border-collapse: collapse;
+    margin: 0px;
+    padding: 0px;
+    text-decoration: none;
+    color: black;
+    list-style: none;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.page0 {
+    width: 1122px;
+    display: flex;
+    margin: auto;
+}
+
+.itemList {
+    width: 1122px;
+    display: inline-block;
+}
+
+.spanList {
+    flex: 4;
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}

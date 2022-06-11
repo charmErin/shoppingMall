@@ -63,16 +63,18 @@
                 </c:otherwise>
             </c:choose>
         </div>
-        <ul class="toggle_line">
-            <li>
-                <i onclick="toggleCondition()" class="bi bi-list"></i><br>
-                <ul id="toggleIcon">
-                    <li onclick="memberDetail()">마이페이지</li>
-                    <li>위시리스트</li>
-                    <li onclick="memberLogout()">로그아웃</li>
-                </ul>
-            </li>
-        </ul>
+        <c:if test="${sessionScope.memberName ne '관리자' && sessionScope.memberName ne null}">
+            <ul class="toggle_line">
+                <li>
+                    <i onclick="toggleCondition()" class="bi bi-list"></i><br>
+                    <ul id="toggleIcon">
+                        <li onclick="memberDetail()">마이페이지</li>
+                        <li>위시리스트</li>
+                        <li onclick="memberLogout()">로그아웃</li>
+                    </ul>
+                </li>
+            </ul>
+        </c:if>
     </div>
 </header>
 </body>
