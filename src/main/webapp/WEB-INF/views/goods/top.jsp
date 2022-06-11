@@ -25,7 +25,7 @@
                 ${goods.goodsPrice}원<br>
             </c:otherwise>
         </c:choose>
-        <img src="${pageContext.request.contextPath}/upload/${goods.goodsFileName1}" height="200" width="200"
+        <img src="${pageContext.request.contextPath}/upload/${goods.goodsFileName1}" height="400" width="400"
                 onclick="topDetail('${goods.id}')"><br>
         <br>
     </c:forEach>

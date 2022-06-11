@@ -7,9 +7,13 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <link rel="stylesheet" href="../../../resources/css/header.css"/>
+    <script src="/resources/js/jquery.js"></script>
+    <script src="/resources/css/bootstrap.min.css"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <title>CHICK</title>
 </head>
 <body>
@@ -37,8 +41,7 @@
                         <c:when test="${sessionScope.memberName ne '관리자'}">
                             <ul class="btn">
                                 <li>${sessionScope.memberName}</li>
-                                <li onclick="memberDetail()">마이페이지</li>
-                                <li onclick="memberLogout()">로그아웃</li>
+                                <li><i class="bi bi-cart"></i></li>
                             </ul>
                         </c:when>
                         <c:otherwise>
@@ -52,13 +55,22 @@
                 </c:when>
                 <c:otherwise>
                     <ul class="btn">
-                        <li></li>
                         <li onclick="loginForm()">로그인</li>
                         <li onclick="memberSave()">회원가입</li>
                     </ul>
                 </c:otherwise>
             </c:choose>
         </div>
+        <ul class="toggle_line">
+            <li>
+                <i onclick="toggleCondition()" class="bi bi-list"></i><br>
+                <ul id="toggleIcon">
+                    <li onclick="memberDetail()">마이페이지</li>
+                    <li>위시리스트</li>
+                    <li onclick="memberLogout()">로그아웃</li>
+                </ul>
+            </li>
+        </ul>
     </div>
 </header>
 </body>
@@ -85,6 +97,10 @@
 
     const goodsSearch = () => {
         searchForm.submit();
+    }
+
+    const toggleCondition = () => {
+        $("#toggleIcon").toggle();
     }
 
 //    admin 전용

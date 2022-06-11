@@ -42,14 +42,22 @@ public class ReviewController {
     }
 
     @GetMapping("/hitsUp")
-    public @ResponseBody List<ReviewDTO> hitsUp(@ModelAttribute ReviewHitsDTO reviewHitsDTO) {
-        reviewService.hitsUp(reviewHitsDTO);
+    public @ResponseBody List<ReviewDTO> hitsUp(@ModelAttribute ReviewHitsDTO reviewHitsDTO, Model model) {
+        ReviewHitsDTO hitsCondition = reviewService.findById(reviewHitsDTO);
+        model.addAttribute("reviewHits", hitsCondition);
+        if (hitsCondition.getReviewHits() != 0) {
+            reviewService.hitsUp(reviewHitsDTO);
+        } else {
+            reviewService.hitsUpdate(reviewHitsDTO);
+        }
         return reviewService.findAll(reviewHitsDTO.getReviewId());
     }
 
     @GetMapping("/hitsDown")
-    public @ResponseBody List<ReviewDTO> hitsDown(@ModelAttribute ReviewHitsDTO reviewHitsDTO) {
+    public @ResponseBody List<ReviewDTO> hitsDown(@ModelAttribute ReviewHitsDTO reviewHitsDTO, Model model) {
         reviewService.hitsDown(reviewHitsDTO);
+        ReviewHitsDTO hitsCondition = reviewService.findById(reviewHitsDTO);
+        model.addAttribute("reviewHits", hitsCondition);
         return reviewService.findAll(reviewHitsDTO.getReviewId());
 
     }

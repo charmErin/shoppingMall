@@ -8,6 +8,7 @@
 }
 
 .intro_bg {
+    display: flex;
     width: 100%;
     height: auto;
     background-color: rgba(0,0,0,0.1);
@@ -16,9 +17,9 @@
 
 .header {
     display: flex;
-    width: 1280px;
+    width: 1160px;
     height: 90px;
-    margin: auto;
+    margin-left: 100px;
 }
 
 .search_area {
@@ -50,8 +51,8 @@
 .nav {
     display: flex;
     justify-content: flex-start;
-    margin: 0 150px;
-    width: 350px;
+    margin: 0 100px;
+    width: 425px;
 }
 
 .nav li {
@@ -69,18 +70,37 @@
 
 .btn {
     display: flex;
-    width: 270px;
+    width: 180px;
     text-align: center;
     justify-content: flex-end;
-    margin: auto 20px;
+    margin: auto 0 auto 20px;
     outline: none;
 }
 
 .btn li {
-    width: 90px;
+    width: 80px;
     flex: 1;
     vertical-align: middle;
     cursor: pointer;
+}
+
+.toggle_line {
+    flex: 1;
+    display: flex;
+    text-align: end;
+    vertical-align: middle;
+}
+
+#toggleIcon {
+    text-align: end;
+}
+
+#toggleIcon li i{
+    cursor: pointer;
+}
+
+#toggleIcon {
+    display: none;
 }
 
 /* header_css 완료 */

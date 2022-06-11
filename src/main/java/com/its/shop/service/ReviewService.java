@@ -36,4 +36,12 @@ public class ReviewService {
     public void hitsDown(ReviewHitsDTO reviewHitsDTO) {
         reviewRepository.hitsDown(reviewHitsDTO);
     }
+
+    public ReviewHitsDTO findById(ReviewHitsDTO reviewHitsDTO) {
+        return reviewRepository.findById(reviewHitsDTO);
+    }
+
+    public void hitsUpdate(ReviewHitsDTO reviewHitsDTO) {
+        reviewRepository.hitsUpdate(reviewHitsDTO);
+    }
 }

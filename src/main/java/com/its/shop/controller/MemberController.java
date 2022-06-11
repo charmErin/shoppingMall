@@ -38,6 +38,7 @@ public class MemberController {
                         HttpSession session){
         MemberDTO member = memberService.login(memberDTO);
         if (member != null) {
+            session.setAttribute("id", member.getId());
             session.setAttribute("memberId", member.getMemberId());
             session.setAttribute("memberName", member.getMemberName());
             return "index";
