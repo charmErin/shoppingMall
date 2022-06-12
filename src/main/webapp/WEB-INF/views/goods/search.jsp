@@ -14,6 +14,9 @@
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
     <h2>검색목록</h2>
+    <c:if test="${goodsList.isEmpty()}">
+        <h4>검색 결과가 없습니다.</h4>
+    </c:if>
     <c:forEach var="goods" items="${goodsList}">
         ${goods.goodsName}<br>
         ${goods.goodsDetail}<br>
@@ -29,5 +32,6 @@
              onclick="topDetail('${goods.id}')"><br>
         <br>
     </c:forEach>
+
 </body>
 </html>

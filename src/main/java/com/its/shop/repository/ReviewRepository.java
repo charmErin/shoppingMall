@@ -37,4 +37,12 @@ public class ReviewRepository {
     public void hitsDown(ReviewHitsDTO reviewHitsDTO) {
         sql.update("Review.hitsDown", reviewHitsDTO);
     }
+
+    public ReviewHitsDTO findById(ReviewHitsDTO reviewHitsDTO) {
+        return sql.selectOne("Review.findById", reviewHitsDTO);
+    }
+
+    public void hitsUpdate(ReviewHitsDTO reviewHitsDTO) {
+        sql.update("Review.hitsUpdate", reviewHitsDTO);
+    }
 }

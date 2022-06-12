@@ -9,26 +9,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="../../../resources/css/list.css">
     <title>CHICK</title>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
-<h2>ACC</h2>
-<c:forEach var="goods" items="${goodsList}">
-    ${goods.goodsName}<br>
-    ${goods.goodsDetail}<br>
-    <c:choose>
-        <c:when test="${goods.goodsDiscount ne 0.0}}">
-            ${goods.goodsPrice * (1-goods.goodsDiscount)}<br>
-        </c:when>
-        <c:otherwise>
-            ${goods.goodsPrice}<br>
-        </c:otherwise>
-    </c:choose>
-    <img src="${pageContext.request.contextPath}/upload/${goods.goodsFileName1}" height="200" width="200"
-                onclick="accDetail('${goods.id}')"><br>
-    <br>
-</c:forEach>
+    <h1>ACC</h1>
+    <div class="page0">
+        <div class="itemList">
+        <c:forEach var="goods" items="${goodsList}">
+            <span class="spanList">
+                <img src="${pageContext.request.contextPath}/upload/${goods.goodsFileName1}" height="350" width="350"
+                     onclick="accDetail('${goods.id}')"><br>
+                ${goods.goodsName}<br>
+                ${goods.goodsDetail}<br>
+                <c:choose>
+                    <c:when test="${goods.goodsDiscount ne 0.0}">
+                        ${goods.goodsPrice * (1-goods.goodsDiscount)}원<br>
+                    </c:when>
+                    <c:otherwise>
+                        ${goods.goodsPrice}원<br>
+                    </c:otherwise>
+                </c:choose>
+            </span>
+        </c:forEach>
+        </div>
+    </div>
 </body>
 <script>
     const accDetail = (id) => {

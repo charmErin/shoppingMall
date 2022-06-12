@@ -1,0 +1,35 @@
+.detail_header {
+    display: flex;
+    width: 1280px;
+    margin: 80px auto;
+}
+
+.detail_header img {
+    margin-bottom: 10px;
+}
+
+.contents0 {
+    flex: 2;
+    padding: 0 60px;
+}
+
+.contents1 {
+    flex: 1;
+    margin: 0 60px 0 10px;
+}
+
+.contents2 {
+    width: 1280px;
+    margin: auto;
+    display: flex;
+}
+
+.contents2 li {
+    flex: 1;
+}
+
+.li_title {
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+}
