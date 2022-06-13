@@ -7,5 +7,6 @@
         <typeAlias type="com.its.shop.dto.GoodsDTO" alias="goods"/>
         <typeAlias type="com.its.shop.dto.ReviewDTO" alias="review"/>
         <typeAlias type="com.its.shop.dto.ReviewHitsDTO" alias="reviewHits"/>
+        <typeAlias type="com.its.shop.dto.CartDTO" alias="cart"/>
     </typeAliases>
 </configuration>

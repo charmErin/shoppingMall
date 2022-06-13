@@ -29,6 +29,10 @@
     <delete id="delete" parameterType="Long">
         delete from chick_goods where id=#{id}
     </delete>
+
+    <insert id="cartAdd" parameterType="cart">
+        insert into chick_cart (memberId, goodsId) values (#{memberId}, #{goodsId})
+    </insert>
 </mapper>
 
 

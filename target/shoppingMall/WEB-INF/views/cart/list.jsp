@@ -24,7 +24,6 @@
                 가격 : ${cart.goodsDTO.goodsPrice}원<br>
             </c:otherwise>
         </c:choose>
-        <br>
     </c:forEach>
 </body>
 </html>
