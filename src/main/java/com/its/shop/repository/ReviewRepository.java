@@ -31,11 +31,12 @@ public class ReviewRepository {
 
     public void hitsUp(ReviewHitsDTO reviewHitsDTO) {
         sql.insert("Review.hitsUp", reviewHitsDTO);
-        sql.update("Review.hitsCount", reviewHitsDTO);
+        sql.update("Review.hitsCountUpdate", reviewHitsDTO);
     }
 
     public void hitsDown(ReviewHitsDTO reviewHitsDTO) {
         sql.update("Review.hitsDown", reviewHitsDTO);
+        sql.update("Review.hitsCountUpdate", reviewHitsDTO);
     }
 
     public ReviewHitsDTO findById(ReviewHitsDTO reviewHitsDTO) {
@@ -44,5 +45,7 @@ public class ReviewRepository {
 
     public void hitsUpdate(ReviewHitsDTO reviewHitsDTO) {
         sql.update("Review.hitsUpdate", reviewHitsDTO);
+        sql.update("Review.hitsCountUpdate", reviewHitsDTO);
     }
+
 }

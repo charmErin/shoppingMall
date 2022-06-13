@@ -42,24 +42,35 @@ public class ReviewController {
     }
 
     @GetMapping("/hitsUp")
-    public @ResponseBody List<ReviewDTO> hitsUp(@ModelAttribute ReviewHitsDTO reviewHitsDTO, Model model) {
+    public @ResponseBody List<ReviewDTO> hitsUp(@RequestParam Long goodsId,
+                                                @RequestParam Long reviewId,
+                                                @RequestParam String memberId) {
+        ReviewHitsDTO reviewHitsDTO = new ReviewHitsDTO();
+        reviewHitsDTO.setMemberId(memberId);
+        reviewHitsDTO.setReviewId(reviewId);
         ReviewHitsDTO hitsCondition = reviewService.findById(reviewHitsDTO);
-        model.addAttribute("reviewHits", hitsCondition);
-        if (hitsCondition.getReviewHits() != 0) {
+
+        if (hitsCondition == null) {
             reviewService.hitsUp(reviewHitsDTO);
         } else {
             reviewService.hitsUpdate(reviewHitsDTO);
         }
-        return reviewService.findAll(reviewHitsDTO.getReviewId());
+        List<ReviewDTO> reviewDTOList = reviewService.findAll(goodsId);
+        return reviewDTOList;
     }
 
     @GetMapping("/hitsDown")
-    public @ResponseBody List<ReviewDTO> hitsDown(@ModelAttribute ReviewHitsDTO reviewHitsDTO, Model model) {
+    public @ResponseBody List<ReviewDTO> hitsDown(@RequestParam Long goodsId,
+                                                  @RequestParam Long reviewId,
+                                                  @RequestParam String memberId) {
+        ReviewHitsDTO reviewHitsDTO = new ReviewHitsDTO();
+        reviewHitsDTO.setMemberId(memberId);
+        reviewHitsDTO.setReviewId(reviewId);
         reviewService.hitsDown(reviewHitsDTO);
-        ReviewHitsDTO hitsCondition = reviewService.findById(reviewHitsDTO);
-        model.addAttribute("reviewHits", hitsCondition);
-        return reviewService.findAll(reviewHitsDTO.getReviewId());
+        List<ReviewDTO> reviewDTOList = reviewService.findAll(goodsId);
+        return reviewDTOList;
 
     }
+
 
 }

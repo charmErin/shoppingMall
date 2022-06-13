@@ -68,14 +68,11 @@ public class GoodsController {
     }
 
     @GetMapping("/detail")
-    public String findById(@RequestParam Long id, HttpSession session, Model model) {
+    public String findById(@RequestParam Long id, Model model) {
         GoodsDTO goodsDTO = goodsService.findById(id);
         model.addAttribute("goods", goodsDTO);
         List<ReviewDTO> reviewDTOList = reviewService.findAll(id);
         model.addAttribute("reviewList", reviewDTOList);
-        String memberId = (String) session.getAttribute("memberId");
-//        ReviewHitsDTO reviewHitsDTO = reviewService.findById(memberId);
-//        model.addAttribute("reviewHits", reviewHitsDTO);
         return "goods/detail";
     }
 
