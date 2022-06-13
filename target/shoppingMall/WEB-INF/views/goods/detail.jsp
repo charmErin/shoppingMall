@@ -49,26 +49,21 @@
 
         <li class="li_title">
             <span onclick="goodsReview()">상품리뷰</span><br>
-            <c:forEach var="review" items="${reviewList}">
-                <div id="reviewOne">
-                    회원아이디: ${review.memberId}<br>
-                    내용: ${review.reviewContents}<br>
-                    작성일: <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${review.reviewCreatedDate}"></fmt:formatDate><br>
-                    추천수: ${review.reviewHits}
-                    <c:choose>
-                        <c:when test="${reviewHits.reviewHits ne 1}">
-                            <i id="icon0" onclick="reviewHitsUpAndDown('${review.id}', '${reviewHits.id}' ,'${review.memberId}')" class="bi bi-hand-thumbs-up"></i><br>
-                        </c:when>
-                        <c:otherwise>
-                            <i id="icon0" onclick="reviewHitsUpAndDown('${review.id}', '${reviewHits.id}','${review.memberId}')" class="bi bi-hand-thumbs-up-fill"></i><br>
-                        </c:otherwise>
-                    </c:choose>
-                    <c:if test="${sessionScope.memberId eq review.memberId}">
-                        <button onclick="reviewUpdate('${review.goodsId}', '${review.id}','${review.reviewContents}')">리뷰수정</button>
-                        <button onclick="reviewDelete('${review.goodsId}', '${review.id}')">리뷰삭제</button>
-                    </c:if>
-                </div>
-            </c:forEach>
+            <div id="reviewOne">
+                <c:forEach var="review" items="${reviewList}">
+                        회원아이디: ${review.memberId}<br>
+                        내용: ${review.reviewContents} <br>
+                        작성일: <fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${review.reviewCreatedDate}"></fmt:formatDate><br>
+                        추천수: ${review.reviewHits}
+                        <i id="icon0_${review.id}" onclick="reviewHitsUp('${goods.id}', '${review.id}', '${sessionScope.memberId}')" class="bi bi-hand-thumbs-up"></i>
+                        <i id="icon1_${review.id}" onclick="reviewHitsDown('${goods.id}', '${review.id}', '${sessionScope.memberId}')" class="bi bi-hand-thumbs-down"></i><br>
+                        <c:if test="${sessionScope.memberId eq review.memberId}">
+                            <button onclick="reviewUpdate('${review.goodsId}', '${review.id}','${review.reviewContents}')">리뷰수정</button>
+                            <button onclick="reviewDelete('${review.goodsId}', '${review.id}')">리뷰삭제</button>
+                        </c:if>
+                    <br>
+                </c:forEach>
+            </div>
         </li>
 
         <li class="li_title">
@@ -76,6 +71,7 @@
         </li>
     </ul>
     <p id="inner"></p>
+    <h1></h1>
     <h1 onclick="reviewSave()">리뷰작성</h1>
 
 </body>
@@ -111,141 +107,166 @@
         }
     }
 
-    const reviewHitsUpAndDown = (reviewId, id, memberId) => {
+    const reviewHitsUp = (goodsId, reviewId, memberId) => {
         const reviewOne = document.getElementById("reviewOne");
-        const iconCondition = document.getElementById("icon0");
-
+        const iconCondition = document.getElementById("icon0_" + reviewId);
         if (iconCondition.className == "bi bi-hand-thumbs-up") {
-            console.log("색채우기");
             iconCondition.className = "bi bi-hand-thumbs-up-fill";
-            $.ajax({
-                type: "get",
-                url: "/review/hitsUp",
-                data: {"id":id, "reviewId": reviewId, "memberId": memberId},
-                dataType: "json",
-                success: function (result) {
-                    for (let i in result){
-                        reviewOne.innerHTML = "회원아이디: " + result[i].memberId + "<br>"
-                            + "내용: " + result[i].reviewContents + "<br>"
-                            + "작성일: " + moment(result[i].reviewCreatedDate).format("YYYY-MM-DD HH:mm:ss") + "<br>"
-                            + '추천수: ' + result[i].reviewHits + '<button id="hits" aria-pressed="true" onclick="reviewHitsUp(' + result[i].id + "," + result[i].memberId + ")'>추천하기▲</button><br>"
-                            + 'if(${reviewHits.reviewHits != 1}){'
-                            + '<button id="hits" aria-pressed="false" onclick="reviewHitsUp(' + result[i].id + ',' + '${reviewHits.id}' +',' + result[i].memberId + ')">추천하기▲</button><br>}'
-                            + 'else {'
-                            + '<button id="hits" aria-pressed="true" onclick="reviewHitsDown(' + result[i].id +',' + '${reviewHits.id}' + ',' + result[i].memberId + ')">추천하기▽</button><br>'
-                            + 'if (${sessionScope.memberId == result[i].memberId}) {'
-                            + '<button onclick="reviewUpdate(' + ${goods.id} + ',' + result[i].id + ',' + result[i].reviewContents + ')">리뷰수정</button><br>'
-                            + '<button onclick="reviewDelete(' + ${goods.id} + ',' + result[i].id + ')">리뷰삭제</button>}';
-                    }
-                }
-            });
         } else {
-            console.log("색비우기");
             iconCondition.className = "bi bi-hand-thumbs-up";
-            $.ajax({
-                type: "get",
-                url: "/review/hitsDown",
-                data: {"reviewId": reviewId, "id": id, "memberId": memberId},
-                dataType: "json",
-                success: function (result) {
-                    for (let i in result){
-                        reviewOne.innerHTML = "회원아이디: " + result[i].memberId + "<br>"
-                            + "내용: " + result[i].reviewContents + "<br>"
-                            + "작성일: " + moment(result[i].reviewCreatedDate).format("YYYY-MM-DD HH:mm:ss") + "<br>"
-                            + '추천수: ' + result[i].reviewHits + '<button id="hits" aria-pressed="true" onclick="reviewHitsUp(' + result[i].id + "," + result[i].memberId + ")'>추천하기▲</button><br>"
-                            + 'if(${reviewHits.reviewHits != 1}){'
-                            + '<button id="hits" aria-pressed="false" onclick="reviewHitsUp(' + result[i].id + ',' + '${reviewHits.id}' +',' + result[i].memberId + ')">추천하기▲</button><br>}'
-                            + 'else {'
-                            + '<button id="hits" aria-pressed="true" onclick="reviewHitsDown(' + result[i].id +',' + '${reviewHits.id}' + ',' + result[i].memberId + ')">추천하기▽</button><br>'
-                            + 'if (${sessionScope.memberId == result[i].memberId}) {'
-                            + '<button onclick="reviewUpdate(' + ${goods.id} + ',' + result[i].id + ',' + result[i].reviewContents + ')">리뷰수정</button><br>'
-                            + '<button onclick="reviewDelete(' + ${goods.id} + ',' + result[i].id + ')">리뷰삭제</button>}';
-                    }
-                }
-            });
-
         }
+        $.ajax({
+            type: "get",
+            url: "/review/hitsUp",
+            data: {"goodsId": goodsId, "reviewId": reviewId, "memberId": memberId},
+            dataType: "json",
+            success: function (result) {
+                let output = '';
+                for (let i in result){
+                    output += "회원아이디: " + result[i].memberId + "<br>";
+                    output += "내용: " + result[i].reviewContents + "<br>";
+                    output += "작성일: " + moment(result[i].reviewCreatedDate).format("YYYY-MM-DD HH:mm:ss") + "<br>";
+                    output += '추천수: ' + result[i].reviewHits +'&nbsp;';
+                    output += '<i id="icon0_' + result[i].id + '"' + ' onclick="reviewHitsUp2(' + goodsId + ',' + result[i].id + ',' + "'${sessionScope.memberId}'" + ')" class="bi bi-hand-thumbs-up"></i> ';
+                    output += '<i id="icon1_' + result[i].id + '"' + ' onclick="reviewHitsDown2(' + goodsId + ',' + result[i].id + ',' + "'${sessionScope.memberId}'" + ')" class="bi bi-hand-thumbs-down"></i><br>';
+                    if ('${sessionScope.memberId}' == result[i].memberId) {
+                        output += '<button onclick="reviewUpdate(' + '${goods.id}' + ',' + result[i].id + ',' + "'" + result[i].reviewContents + "'" + ')">리뷰수정</button>';
+                        output += '<button onclick="reviewDelete(' + '${goods.id}' + ',' + result[i].id + ')">리뷰삭제</button><br>';
+                    }
+                    output += '<br>';
+                }
+                reviewOne.innerHTML = output;
+                const iconCondition = document.getElementById("icon0_" + reviewId);
+                if (iconCondition.className == "bi bi-hand-thumbs-up") {
+                    iconCondition.className = "bi bi-hand-thumbs-up-fill";
+                } else {
+                    iconCondition.className = "bi bi-hand-thumbs-up";
+                }
+            }
+
+        });
     }
 
+    const reviewHitsDown = (goodsId, reviewId, memberId) => {
+        const reviewOne = document.getElementById("reviewOne");
+        const iconCondition2 = document.getElementById("icon1_" + reviewId);
+        if (iconCondition2.className == "bi bi-hand-thumbs-down") {
+            iconCondition2.className = "bi bi-hand-thumbs-down-fill";
+        } else {
+            iconCondition2.className = "bi bi-hand-thumbs-down";
+        }
 
-    <%--const reviewHitsUp = (reviewId, id, memberId) => {--%>
-    <%--    --%>
-    <%--    const reviewOne = document.getElementById("reviewOne");--%>
-    <%--   --%>
+        $.ajax({
+            type: "get",
+            url: "/review/hitsDown",
+            data: {"goodsId": goodsId, "reviewId": reviewId, "memberId": memberId},
+            dataType: "json",
+            success: function (result) {
+                let output = '';
+                for (let i in result){
+                    output += "회원아이디: " + result[i].memberId + "<br>";
+                    output += "내용: " + result[i].reviewContents + "<br>";
+                    output += "작성일: " + moment(result[i].reviewCreatedDate).format("YYYY-MM-DD HH:mm:ss") + "<br>";
+                    output += '추천수: ' + result[i].reviewHits +'&nbsp;'
+                    output += '<i id="icon0_' + result[i].id + '"' + ' onclick="reviewHitsUp2(' + goodsId + ',' + result[i].id + ',' + "'${sessionScope.memberId}'" + ')" class="bi bi-hand-thumbs-up"></i> ';
+                    output += '<i id="icon1_' + result[i].id + '"' + ' onclick="reviewHitsDown2(' + goodsId + ',' + result[i].id + ',' + "'${sessionScope.memberId}'" + ')" class="bi bi-hand-thumbs-down"></i><br>';
+                    if ('${sessionScope.memberId}' == result[i].memberId) {
+                        output += '<button onclick="reviewUpdate(' + '${goods.id}' + ',' + result[i].id + ',' + "'" + result[i].reviewContents + "'" + ')">리뷰수정</button>';
+                        output += '<button onclick="reviewDelete(' + '${goods.id}' + ',' + result[i].id + ')">리뷰삭제</button><br>';
+                    }
+                    output += '<br>';
+                }
+                reviewOne.innerHTML = output;
+                const iconCondition2 = document.getElementById("icon1_" + reviewId);
+                if (iconCondition2.className == "bi bi-hand-thumbs-down") {
+                    iconCondition2.className = "bi bi-hand-thumbs-down-fill";
+                } else {
+                    iconCondition2.className = "bi bi-hand-thumbs-down";
+                }
+            }
+        });
 
-    <%--    $.ajax({--%>
-    <%--        type: "get",--%>
-    <%--        url: "/review/hitsUp",--%>
-    <%--        data: {"id":id, "reviewId": reviewId, "memberId": memberId},--%>
-    <%--        dataType: "json",--%>
-    <%--        success: function (result) {--%>
-    <%--            for (let i in result){--%>
-    <%--                reviewOne.innerHTML = "회원아이디: " + result[i].memberId + "<br>"--%>
-    <%--                                    + "내용: " + result[i].reviewContents + "<br>"--%>
-    <%--                                    + "작성일: " + moment(result[i].reviewCreatedDate).format("YYYY-MM-DD HH:mm:ss") + "<br>"--%>
-    <%--                                    + '추천수: ' + result[i].reviewHits + '<button id="hits" aria-pressed="true" onclick="reviewHitsUp(' + result[i].id + "," + result[i].memberId + ")'>추천하기▲</button><br>"--%>
-    <%--                                    + 'if(${reviewHits.reviewHits != 1}){'--%>
-    <%--                                    + '<button id="hits" aria-pressed="false" onclick="reviewHitsUp(' + result[i].id + ',' + '${reviewHits.id}' +',' + result[i].memberId + ')">추천하기▲</button><br>}'--%>
-    <%--                                    + 'else {'--%>
-    <%--                                    + '<button id="hits" aria-pressed="true" onclick="reviewHitsDown(' + result[i].id +',' + '${reviewHits.id}' + ',' + result[i].memberId + ')">추천하기▽</button><br>'--%>
-    <%--                                    + 'if (${sessionScope.memberId == result[i].memberId}) {'--%>
-    <%--                                    + '<button onclick="reviewUpdate(' + ${goods.id} + ',' + result[i].id + ',' + result[i].reviewContents + ')">리뷰수정</button><br>'--%>
-    <%--                                    + '<button onclick="reviewDelete(' + ${goods.id} + ',' + result[i].id + ')">리뷰삭제</button>}';--%>
-    <%--            }--%>
-    <%--        }--%>
-    <%--    });--%>
-    <%--}--%>
+    }
 
-    <%--const reviewHitsDown = (reviewId, id, memberId) => {--%>
-    <%--    console.log("reviewHitsDown 실행 OK");--%>
-    <%--    const reviewOne = document.getElementById("reviewOne");--%>
-    <%--    const iconCondition = document.getElementById("icon1");--%>
-    <%--    iconCondition.className = "bi bi-hand-thumbs-up";--%>
+    const reviewHitsUp2 = (goodsId, reviewId, memberId) => {
+        const reviewOne = document.getElementById("reviewOne");
+        const iconCondition = document.getElementById("icon0_" + reviewId);
+        if (iconCondition.className == "bi bi-hand-thumbs-up") {
+            iconCondition.className = "bi bi-hand-thumbs-up-fill";
+        } else {
+            iconCondition.className = "bi bi-hand-thumbs-up";
+        }
 
-    <%--    $.ajax({--%>
-    <%--        type: "get",--%>
-    <%--        url: "/review/hitsDown",--%>
-    <%--        data: {"reviewId": reviewId, "id": id, "memberId": memberId},--%>
-    <%--        dataType: "json",--%>
-    <%--        success: function (result) {--%>
-    <%--            for (let i in result){--%>
-    <%--                reviewOne.innerHTML = "회원아이디: " + result[i].memberId + "<br>"--%>
-    <%--                                    + "내용: " + result[i].reviewContents + "<br>"--%>
-    <%--                                    + "작성일: " + moment(result[i].reviewCreatedDate).format("YYYY-MM-DD HH:mm:ss") + "<br>"--%>
-    <%--                                    + '추천수: ' + result[i].reviewHits + '<button id="hits" aria-pressed="true" onclick="reviewHitsUp(' + result[i].id + "," + result[i].memberId + ")'>추천하기▲</button><br>"--%>
-    <%--                                    + 'if(${reviewHits.reviewHits != 1}){'--%>
-    <%--                                    + '<button id="hits" aria-pressed="false" onclick="reviewHitsUp(' + result[i].id + ',' + '${reviewHits.id}' +',' + result[i].memberId + ')">추천하기▲</button><br>}'--%>
-    <%--                                    + 'else {'--%>
-    <%--                                    + '<button id="hits" aria-pressed="true" onclick="reviewHitsDown(' + result[i].id +',' + '${reviewHits.id}' + ',' + result[i].memberId + ')">추천하기▽</button><br>'--%>
-    <%--                                    + 'if (${sessionScope.memberId == result[i].memberId}) {'--%>
-    <%--                                    + '<button onclick="reviewUpdate(' + ${goods.id} + ',' + result[i].id + ',' + result[i].reviewContents + ')">리뷰수정</button><br>'--%>
-    <%--                                    + '<button onclick="reviewDelete(' + ${goods.id} + ',' + result[i].id + ')">리뷰삭제</button>}';--%>
-    <%--            }--%>
-    <%--        }--%>
-    <%--    });--%>
-    <%--}--%>
+        $.ajax({
+            type: "get",
+            url: "/review/hitsUp",
+            data: {"goodsId": goodsId, "reviewId": reviewId, "memberId": memberId},
+            dataType: "json",
+            success: function (result) {
+                let output = '';
+                for (let i in result){
+                    output += "회원아이디: " + result[i].memberId + "<br>";
+                    output += "내용: " + result[i].reviewContents + "<br>";
+                    output += "작성일: " + moment(result[i].reviewCreatedDate).format("YYYY-MM-DD HH:mm:ss") + "<br>";
+                    output += '추천수: ' + result[i].reviewHits +'&nbsp;'
+                    output += '<i id="icon0_' + result[i].id + '"' + ' onclick="reviewHitsUp(' + goodsId + ',' + result[i].id + ',' + "'${sessionScope.memberId}'" + ')" class="bi bi-hand-thumbs-up"></i> ';
+                    output += '<i id="icon1_' + result[i].id + '"' + ' onclick="reviewHitsDown(' + goodsId + ',' + result[i].id + ',' + "'${sessionScope.memberId}'" + ')" class="bi bi-hand-thumbs-down"></i><br>';
+                    if ('${sessionScope.memberId}' == result[i].memberId) {
+                        output += '<button onclick="reviewUpdate(' + '${goods.id}' + ',' + result[i].id + ',' + "'" + result[i].reviewContents + "'" + ')">리뷰수정</button>';
+                        output += '<button onclick="reviewDelete(' + '${goods.id}' + ',' + result[i].id + ')">리뷰삭제</button><br>';
+                    }
+                    output += '<br>';
+                }
+                reviewOne.innerHTML = output;
+                const iconCondition = document.getElementById("icon0_" + reviewId);
+                if (iconCondition.className == "bi bi-hand-thumbs-up") {
+                    iconCondition.className = "bi bi-hand-thumbs-up-fill";
+                } else {
+                    iconCondition.className = "bi bi-hand-thumbs-up";
+                }
+            }
+        });
+    }
 
-    <%-- const goodsDetail = () => {--%>
-   <%--     const inner = document.getElementById("inner");--%>
-   <%--     inner.innerHTML = "${goods.goodsDetail}";--%>
-   <%-- }--%>
+    const reviewHitsDown2 = (goodsId, reviewId, memberId) => {
+        const reviewOne = document.getElementById("reviewOne");
+        const iconCondition2 = document.getElementById("icon1_" + reviewId);
+        if (iconCondition2.className == "bi bi-hand-thumbs-down") {
+            iconCondition2.className = "bi bi-hand-thumbs-down-fill";
+        } else {
+            iconCondition2.className = "bi bi-hand-thumbs-down";
+        }
 
-   <%-- const goodsReview = () => {--%>
-   <%--     const id = '${goods.id}';--%>
-   <%--     const inner = document.getElementById("inner");--%>
-   <%--     $.ajax({--%>
-   <%--         type: "post",--%>
-   <%--         url: "/review/save-form?id=" + id,--%>
-   <%--         data: {"id": id},--%>
-   <%--         dataType: "json",--%>
-   <%--         success: function (result){--%>
-   <%--             let output = '';--%>
-   <%--         }--%>
-   <%--     });--%>
-   <%-- }--%>
+        $.ajax({
+            type: "get",
+            url: "/review/hitsDown",
+            data: {"goodsId": goodsId, "reviewId": reviewId, "memberId": memberId},
+            dataType: "json",
+            success: function (result) {
+                let output = '';
+                for (let i in result){
+                    output += "회원아이디: " + result[i].memberId + "<br>";
+                    output += "내용: " + result[i].reviewContents + "<br>";
+                    output += "작성일: " + moment(result[i].reviewCreatedDate).format("YYYY-MM-DD HH:mm:ss") + "<br>";
+                    output += '추천수: ' + result[i].reviewHits + '&nbsp;'
+                    output += '<i id="icon0_' + result[i].id + '"' + ' onclick="reviewHitsUp(' + goodsId + ',' + result[i].id + ',' + "'${sessionScope.memberId}'" + ')" class="bi bi-hand-thumbs-up"></i> ';
+                    output += '<i id="icon1_' + result[i].id + '"' + ' onclick="reviewHitsDown(' + goodsId + ',' + result[i].id + ',' + "'${sessionScope.memberId}'" + ')" class="bi bi-hand-thumbs-down"></i><br>';
+                    if ('${sessionScope.memberId}' == result[i].memberId) {
+                        output += '<button onclick="reviewUpdate(' + '${goods.id}' + ',' + result[i].id + ',' + "'" + result[i].reviewContents + "'" + ')">리뷰수정</button>';
+                        output += '<button onclick="reviewDelete(' + '${goods.id}' + ',' + result[i].id + ')">리뷰삭제</button><br>';
+                    }
+                    output += '<br>';
+                }
+                reviewOne.innerHTML = output;
+                const iconCondition2 = document.getElementById("icon1_" + reviewId);
+                if (iconCondition2.className == "bi bi-hand-thumbs-down") {
+                    iconCondition2.className = "bi bi-hand-thumbs-down-fill";
+                } else {
+                    iconCondition2.className = "bi bi-hand-thumbs-down";
+                }
+            }
+        });
+    }
 
-   <%--const goodsQnA = () => {--%>
-
-   <%--}--%>
 </script>
 </html>

@@ -22,24 +22,28 @@
     </delete>
 
     <insert id="hitsUp" parameterType="reviewHits">
-        insert into chick_reviewHits (reviewId, memberId, reviewHits)
-            values (#{reviewId}, #{memberId}, 1)
+        insert into chick_reviewHits (reviewId, memberId)
+            values (#{reviewId}, #{memberId})
     </insert>
 
     <update id="hitsDown" parameterType="reviewHits">
-        update chick_reviewHits set reviewHits=0 where id=#{id} and reviewId=#{reviewId} and memberId=#{memberId}
+        update chick_reviewHits set reviewHits=0 where reviewId=#{reviewId} and memberId=#{memberId}
     </update>
 
-    <update id="hitsCount" parameterType="review">
-        update chick_review set reviewHits=(select count(id) from chick_reviewHits where reviewId=#{reviewId})
-        where id=#{id}
+    <update id="hitsCountUpdate" parameterType="review">
+        update chick_review set reviewHits=(select count(id) from chick_reviewHits where reviewHits=1 and reviewId=#{reviewId})
+        where id=#{reviewId}
     </update>
+
+    <select id="reviewList" parameterType="reviewHits" resultType="review">
+        select * from chick_review where id=#{goodsId}
+    </select>
 
     <select id="findById" parameterType="reviewHits" resultType="reviewHits">
         select * from chick_reviewHits where reviewId=#{reviewId} and memberId=#{memberId}
     </select>
 
     <update id="hitsUpdate" parameterType="reviewHits">
-        update chick_reviewHits set reviewHits=1 where id=#{id} and reviewId=#{reviewId} and memberId=#{memberId}
+        update chick_reviewHits set reviewHits=1 where reviewId=#{reviewId} and memberId=#{memberId}
     </update>
 </mapper>
