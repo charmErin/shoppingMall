@@ -42,7 +42,7 @@
                             <ul class="btn">
                                 <li></li>
                                 <li>${sessionScope.memberName}</li>
-                                <li><i class="bi bi-cart"></i></li>
+                                <li onclick="cartList()"><i class="bi bi-cart"></i></li>
                             </ul>
                         </c:when>
                         <c:otherwise>
@@ -62,7 +62,6 @@
                     </ul>
                 </c:otherwise>
             </c:choose>
-        </div>
         <c:if test="${sessionScope.memberName ne '관리자' && sessionScope.memberName ne null}">
             <ul class="toggle_line">
                 <li>
@@ -75,6 +74,7 @@
                 </li>
             </ul>
         </c:if>
+        </div>
     </div>
 </header>
 </body>
@@ -105,6 +105,10 @@
 
     const toggleCondition = () => {
         $("#toggleIcon").toggle();
+    }
+
+    const cartList = () => {
+        location.href = "/cart/findAll";
     }
 
 //    admin 전용

@@ -38,6 +38,7 @@
                     <button onclick="goodsUpdate()">수정</button>
                     <button onclick="goodsDelete('${goods.goodsCategory}', '${goods.id}')">삭제</button>
                 </c:if>
+            <h1 onclick="cartAdd()">장바구니추가</h1>
         </div>
     </div>
 
@@ -266,6 +267,10 @@
                 }
             }
         });
+    }
+
+    const cartAdd = () => {
+        location.href = "/cart/save?goodsId=${goods.id}";
     }
 
 </script>

@@ -1,5 +1,6 @@
 package com.its.shop.repository;
 
+import com.its.shop.dto.CartDTO;
 import com.its.shop.dto.GoodsDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,4 +40,5 @@ public class GoodsRepository {
     public void delete(Long id) {
         sql.delete("Goods.delete", id);
     }
+
 }

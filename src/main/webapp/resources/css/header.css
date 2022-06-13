@@ -17,9 +17,9 @@
 
 .header {
     display: flex;
-    width: 1160px;
+    width: 1500px;
     height: 90px;
-    margin-left: 100px;
+    margin: 0 200px;
 }
 
 .search_area {
@@ -51,14 +51,14 @@
 .nav {
     display: flex;
     justify-content: flex-start;
-    margin: 0 50px 0 100px;
+    margin: 0 150px;
     width: 425px;
 }
 
 .nav li {
     width: 90px;
     flex: 1;
-    margin: auto 15px auto 15px;
+    margin: auto 30px;
     text-align: center;
 }
 
@@ -70,7 +70,7 @@
 
 .btn {
     display: flex;
-    width: 240px;
+    width: 300px;
     text-align: center;
     justify-content: flex-end;
     margin: auto 0 auto 20px;
@@ -88,7 +88,6 @@
 
 .toggle_line {
     flex: 1;
-    display: flex;
     text-align: end;
     vertical-align: middle;
 }

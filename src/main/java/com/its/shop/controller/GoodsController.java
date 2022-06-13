@@ -1,5 +1,6 @@
 package com.its.shop.controller;
 
+import com.its.shop.dto.CartDTO;
 import com.its.shop.dto.GoodsDTO;
 import com.its.shop.dto.ReviewDTO;
 import com.its.shop.dto.ReviewHitsDTO;
@@ -102,5 +103,7 @@ public class GoodsController {
         goodsService.delete(id);
         return "redirect:/goods/" + category;
     }
+
+
 
 }
