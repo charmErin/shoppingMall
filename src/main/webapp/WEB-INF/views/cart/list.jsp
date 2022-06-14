@@ -10,16 +10,37 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <script src="/resources/js/jquery.js"></script>
-    <script src="/resources/css/bootstrap.min.css"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <script src="/resources/js/jquery.js"></script>
     <title>CHICK</title>
     <style>
+        * {
+            box-sizing: content-box; !important;
+        }
+        .nav {
+            flex-wrap: nowrap !important;
+            list-style: none !important;
+            text-decoration: none !important;
+            text-decoration-line: none !important;
+            border-collapse: collapse !important;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        th {
+            font-size: x-large;
+        }
+
+        td {
+            vertical-align: middle;
+        }
+
         .price {
             text-decoration-line: line-through;
             text-decoration-color: red;
-            text-align: center;
         }
 
         .discount {
@@ -35,14 +56,16 @@
 </head>
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
-    <h2>장바구니</h2>
+<div class="container">
+<h2>장바구니</h2>
 <div id="cart-list">
-    <table class="table">
+    <table class="table table-hover">
         <tr>
             <th></th>
             <th>ITEM</th>
             <th>QTY</th>
             <th>PRICE</th>
+            <th></th>
         </tr>
 
         <c:forEach var="cart" items="${cartList}">
@@ -71,6 +94,8 @@
             </tr>
         </c:forEach>
     </table>
+    <button class="btn btn-outline-primary" onclick="orderGo()">주문하기</button>
+</div>
 </div>
 
 </body>
@@ -85,11 +110,11 @@
             data: {"goodsId": goodsId, "memberId": memberId},
             dataType: "json",
             success: function(result) {
-                let output = '<table class="table">';
+                let output = '<table class="table table-hover">';
                     output += '<tr><th></th>';
                     output += '<th>ITEM</th>';
                     output += '<th>QTY</th>';
-                    output += '<th>PRICE</th></tr>';
+                    output += '<th>PRICE</th><th></th></tr>';
 
                 for (let i in result) {
                     output += '<tr><td>' + '<img src="' + '${pageContext.request.contextPath}' + '/upload/' + result[i].goodsDTO.goodsFileName1 + '" height="100" width="100">' + '</td>';
@@ -124,11 +149,11 @@
             data: {"goodsId": goodsId, "memberId": memberId},
             dataType: "json",
             success: function(result) {
-                let output = '<table class="table">';
+                let output = '<table class="table table-hover">';
                 output += '<tr><th></th>';
                 output += '<th>ITEM</th>';
                 output += '<th>QTY</th>';
-                output += '<th>PRICE</th></tr>';
+                output += '<th>PRICE</th><th></th></tr>';
 
                 for (let i in result) {
                     output += '<tr><td>' + '<img src="' + '${pageContext.request.contextPath}' + '/upload/' + result[i].goodsDTO.goodsFileName1 + '" height="100" width="100">' + '</td>';
@@ -156,6 +181,12 @@
     const cartDelete = (goodsId) => {
         if (confirm("상품을 삭제하시겠습니까?")) {
             location.href = "/cart/delete?goodsId=" + goodsId;
+        }
+    }
+
+    const orderGo = () => {
+        if (confirm("주문하시겠습니까?")) {
+            location.href = "/order/save-form";
         }
     }
 </script>

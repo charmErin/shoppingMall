@@ -12,7 +12,6 @@
 <head>
     <link rel="stylesheet" href="../../../resources/css/header.css"/>
     <script src="/resources/js/jquery.js"></script>
-    <script src="/resources/css/bootstrap.min.css"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <title>CHICK</title>
 </head>

@@ -18,7 +18,7 @@
 
     <select id="findAll" parameterType="String" resultMap="cart">
         select c.memberId, c.goodsId, c.cartStock, g.id, g.goodsFileName1 ,g.goodsName, g.goodsStock, g.goodsPrice, g.goodsDiscount from chick_cart c, chick_goods g
-            where c.goodsId = g.id and c.memberId=#{memberId}
+            where c.goodsId = g.id and c.memberId=#{memberId} order by id desc
     </select>
 
     <resultMap type="goods" id="goodsDTO">

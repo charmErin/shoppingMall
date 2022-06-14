@@ -17,8 +17,8 @@
     </update>
 
     <select id="findAll" parameterType="String" resultMap="cart">
-        select c.memberId, c.goodsId, c.cartStock, g.id ,g.goodsName, g.goodsStock, g.goodsPrice, g.goodsDiscount from chick_cart c, chick_goods g
-            where c.goodsId = g.id and c.memberId=#{memberId}
+        select c.memberId, c.goodsId, c.cartStock, g.id, g.goodsFileName1 ,g.goodsName, g.goodsStock, g.goodsPrice, g.goodsDiscount from chick_cart c, chick_goods g
+            where c.goodsId = g.id and c.memberId=#{memberId} order by id desc
     </select>
 
     <resultMap type="goods" id="goodsDTO">
@@ -27,6 +27,7 @@
         <result column="goodsStock" property="goodsStock"/>
         <result column="goodsPrice" property="goodsPrice"/>
         <result column="goodsDiscount" property="goodsDiscount"/>
+        <result column="goodsFileName1" property="goodsFileName1"/>
     </resultMap>
 
     <resultMap type="cart" id="cart">
@@ -35,6 +36,14 @@
         <result column="cartStock" property="cartStock"/>
         <collection property="goodsDTO" resultMap="goodsDTO"/>
     </resultMap>
+
+    <update id="countDown" parameterType="cart">
+        update chick_cart set cartStock=cartStock-1 where memberId=#{memberId} and goodsId=#{goodsId}
+    </update>
+
+    <delete id="delete" parameterType="cart">
+        delete from chick_cart where memberId=#{memberId} and goodsId=#{goodsId}
+    </delete>
 </mapper>
 
 

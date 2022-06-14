@@ -5,6 +5,7 @@
     text-decoration: none;
     color: black;
     list-style: none;
+
 }
 
 .intro_bg {
@@ -51,8 +52,8 @@
 .nav {
     display: flex;
     justify-content: flex-start;
-    margin: 0 150px;
-    width: 425px;
+    margin-left: 150px;
+    width: 600px;
 }
 
 .nav li {
