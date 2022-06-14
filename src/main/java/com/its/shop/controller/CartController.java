@@ -5,9 +5,7 @@ import com.its.shop.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -40,8 +38,30 @@ public class CartController {
         String memberId = (String) session.getAttribute("memberId");
         List<CartDTO> cartDTOList = cartService.findAll(memberId);
         model.addAttribute("cartList", cartDTOList);
-        System.out.println("cartDTOList:" + cartDTOList);
         return "cart/list";
     }
 
+    @GetMapping("/count-up")
+    public @ResponseBody List<CartDTO> countUp (@ModelAttribute CartDTO cartDTO) {
+        cartService.countAdd(cartDTO);
+        List<CartDTO> cartDTOList = cartService.findAll(cartDTO.getMemberId());
+        return cartDTOList;
+    }
+
+    @GetMapping("/count-down")
+    public @ResponseBody List<CartDTO> countDown (@ModelAttribute CartDTO cartDTO) {
+        cartService.countDown(cartDTO);
+        List<CartDTO> cartDTOList = cartService.findAll(cartDTO.getMemberId());
+        return cartDTOList;
+    }
+
+    @GetMapping("/delete")
+    public String delete (@ModelAttribute CartDTO cartDTO, HttpSession session, Model model) {
+        String memberId = (String) session.getAttribute("memberId");
+        cartDTO.setMemberId(memberId);
+        cartService.delete(cartDTO);
+        List<CartDTO> cartDTOList = cartService.findAll(memberId);
+        model.addAttribute("cartList", cartDTOList);
+        return "cart/list";
+    }
 }

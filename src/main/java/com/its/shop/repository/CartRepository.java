@@ -27,4 +27,12 @@ public class CartRepository {
     public List<CartDTO> findAll(String memberId) {
         return sql.selectList("Cart.findAll", memberId);
     }
+
+    public void countDown(CartDTO cartDTO) {
+        sql.update("Cart.countDown", cartDTO);
+    }
+
+    public void delete(CartDTO cartDTO) {
+        sql.delete("Cart.delete", cartDTO);
+    }
 }

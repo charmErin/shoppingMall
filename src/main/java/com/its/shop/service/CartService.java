@@ -29,4 +29,13 @@ public class CartService {
     public List<CartDTO> findAll(String memberId) {
         return cartRepository.findAll(memberId);
     }
+
+
+    public void countDown(CartDTO cartDTO) {
+        cartRepository.countDown(cartDTO);
+    }
+
+    public void delete(CartDTO cartDTO) {
+        cartRepository.delete(cartDTO);
+    }
 }
