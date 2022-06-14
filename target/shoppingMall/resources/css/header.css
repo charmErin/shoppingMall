@@ -5,6 +5,7 @@
     text-decoration: none;
     color: black;
     list-style: none;
+
 }
 
 .intro_bg {
@@ -51,8 +52,8 @@
 .nav {
     display: flex;
     justify-content: flex-start;
-    margin: 0 150px;
-    width: 425px;
+    margin-left: 150px;
+    width: 600px;
 }
 
 .nav li {
@@ -68,7 +69,7 @@
     font-size: larger;
 }
 
-.btn {
+.btn1 {
     display: flex;
     width: 300px;
     text-align: center;
@@ -77,11 +78,11 @@
     outline: none;
 }
 
-.btn li {
+.btn1 li {
     flex: 1;
 }
 
-.btn li:not(:first-child) {
+.btn1 li:not(:first-child) {
     vertical-align: middle;
     cursor:pointer;
 }

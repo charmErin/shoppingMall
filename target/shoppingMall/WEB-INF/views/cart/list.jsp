@@ -32,10 +32,13 @@
 
         th {
             font-size: x-large;
+            text-align: center;
         }
 
         td {
             vertical-align: middle;
+            width: 200px;
+            text-align: center;
         }
 
         .price {
@@ -52,6 +55,10 @@
         .cart-count {
             font-size: larger;
         }
+
+        input {
+            width: 50px;
+        }
     </style>
 </head>
 <body>
@@ -61,16 +68,17 @@
 <div id="cart-list">
     <table class="table table-hover">
         <tr>
+            <th><i onclick="selectAll()" class="bi bi-check-square"></i></th>
             <th></th>
             <th>ITEM</th>
             <th>QTY</th>
             <th>PRICE</th>
-            <th></th>
         </tr>
 
         <c:forEach var="cart" items="${cartList}">
             <tr>
-                <td><img src="${pageContext.request.contextPath}/upload/${cart.goodsDTO.goodsFileName1}" height="100" width="100"></td>
+                <td><input type="checkbox" name="goodsId" value="${cart.goodsDTO.id}">
+                    <img src="${pageContext.request.contextPath}/upload/${cart.goodsDTO.goodsFileName1}" height="120" width="120"></td>
                 <td>${cart.goodsDTO.goodsName}</td>
                 <td class="cart-count">${cart.cartStock}
                     <c:if test="${cart.cartStock < cart.goodsDTO.goodsStock}">
@@ -89,11 +97,14 @@
                     </c:otherwise>
                 </c:choose>
                 <td>
-                    <button onclick="cartDelete('${cart.goodsDTO.id}')">삭제</button>
+                    <button class="btn btn-outline-dark btn-sm" onclick="cartDelete('${cart.goodsDTO.id}')">삭제</button>
                 </td>
             </tr>
         </c:forEach>
     </table>
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-outline-primary" onclick="orderGo()">주문하기</button>
+    </div>
 </div>
 </div>
 
@@ -110,13 +121,14 @@
             dataType: "json",
             success: function(result) {
                 let output = '<table class="table table-hover">';
-                    output += '<tr><th></th>';
+                    output += '<tr><th><i onclick="selectAll()" class="bi bi-check-square"></i></th>';
                     output += '<th>ITEM</th>';
                     output += '<th>QTY</th>';
                     output += '<th>PRICE</th><th></th></tr>';
 
                 for (let i in result) {
-                    output += '<tr><td>' + '<img src="' + '${pageContext.request.contextPath}' + '/upload/' + result[i].goodsDTO.goodsFileName1 + '" height="100" width="100">' + '</td>';
+                    output += '<tr>' + '<input type="checkbox" name="goodsId" value="${cart.goodsDTO.id}">';
+                    output += '<td>' + '<img src="' + '${pageContext.request.contextPath}' + '/upload/' + result[i].goodsDTO.goodsFileName1 + '" height="120" width="120">' + '</td>';
                     output += '<td>' + result[i].goodsDTO.goodsName + '</td>';
                     output += '<td class="cart-count">' + result[i].cartStock + '&nbsp;';
                     if (result[i].cartStock < result[i].goodsDTO.goodsStock) {
@@ -131,7 +143,7 @@
                     } else {
                         output += '<td>' + (result[i].goodsDTO.goodsPrice * result[i].cartStock) + '원</td>';
                     }
-                    output += '<td>' + '<button onclick="cartDelete(' + result[i].goodsDTO.id + ')">삭제</button></td></tr>';
+                    output += '<td>' + '<button class="btn btn-outline-dark btn-sm" onclick="cartDelete(' + result[i].goodsDTO.id + ')">삭제</button></td></tr>';
                 }
                 cartList.innerHTML = output;
             }
@@ -149,14 +161,14 @@
             dataType: "json",
             success: function(result) {
                 let output = '<table class="table table-hover">';
-                output += '<tr><th></th>';
+                output += '<tr><th><i onclick="selectAll()" class="bi bi-check-square"></i></th>';
                 output += '<th>ITEM</th>';
                 output += '<th>QTY</th>';
                 output += '<th>PRICE</th><th></th></tr>';
 
                 for (let i in result) {
-                    output += '<tr><td>' + '<img src="' + '${pageContext.request.contextPath}' + '/upload/' + result[i].goodsDTO.goodsFileName1 + '" height="100" width="100">' + '</td>';
-                    output += '<td>' + result[i].goodsDTO.goodsName + '</td>';
+                    output += '<tr>' + '<input type="checkbox" name="goodsId" value="${cart.goodsDTO.id}">';
+                    output += '<td>' + '<img src="' + '${pageContext.request.contextPath}' + '/upload/' + result[i].goodsDTO.goodsFileName1 + '" height="120" width="120">' + '</td>';                    output += '<td>' + result[i].goodsDTO.goodsName + '</td>';
                     output += '<td class="cart-count">' + result[i].cartStock + '&nbsp;';
                     if (result[i].cartStock < result[i].goodsDTO.goodsStock) {
                         output += '<i onclick="cartCountPlus(' + result[i].goodsDTO.id + ')" class="bi bi-bag-plus"></i>&nbsp;';
@@ -170,7 +182,7 @@
                     } else {
                         output += '<td>' + (result[i].goodsDTO.goodsPrice * result[i].cartStock) + '원</td>';
                     }
-                    output += '<td>' + '<button onclick="cartDelete(' + result[i].goodsDTO.id + ')">삭제</button></td></tr>';
+                    output += '<td>' + '<button class="btn btn-outline-dark btn-sm" onclick="cartDelete(' + result[i].goodsDTO.id + ')">삭제</button></td></tr>';
                 }
                 cartList.innerHTML = output;
             }
@@ -181,6 +193,31 @@
         if (confirm("상품을 삭제하시겠습니까?")) {
             location.href = "/cart/delete?goodsId=" + goodsId;
         }
+    }
+
+    const orderGo = () => {
+        if (confirm("주문하시겠습니까?")) {
+            let goodsIdArray = [];
+            $('input[name="goodsId"]:checked').each(function(){
+                goodsIdArray.push($(this).val());
+            });
+            console.log(goodsIdArray[0]);
+
+            $.ajax({
+                type: "get",
+                url : "/order/saveForm",
+                data : {"goodsIdArray": goodsIdArray},
+                dataType : "json",
+                success: function () {
+                    // location.href = "/order/save?result="+result;
+                }
+            });
+        }
+    }
+
+    const selectAll = () => {
+        console.log("함수실행됨");
+        $(":checkbox").attr("checked", "checked");
     }
 </script>
 </html>
