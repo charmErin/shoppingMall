@@ -34,6 +34,7 @@
 
             <c:forEach var="cart" items="${cartList}">
                 <tr>
+                    <input type="hidden" name="goodsIdList" value="${cart.goodsId}">
                     <td><img src="${pageContext.request.contextPath}/upload/${cart.goodsDTO.goodsFileName1}" height="120" width="120"></td>
                     <td class="goodsId">${cart.goodsDTO.goodsName}</td>
                     <td class="cart-count">${cart.cartStock}
@@ -116,21 +117,16 @@
     }
 
     const orderOk = () => {
-        // let goodsIdArray = [];
-        // $('input[name="goodsIdList"]').each(function(){
-        //     goodsIdArray.push($(this).val());
-        // });
-        orderForm.submit();
+        let goodsIdArray = [];
+        $('input[name="goodsIdList"]').each(function(){
+            goodsIdArray.push($(this).val());
+        });
+        console.log(goodsIdArray[0]);
+        console.log(goodsIdArray[1]);
+        console.log(goodsIdArray[2]);
+        console.log(goodsIdArray[3]);
 
-        // $.ajax({
-        //     type: "get",
-        //     url : "/order/save-goods-id",
-        //     data : {"goodsIdArray": goodsIdArray},
-        //     dataType : "text",
-        //     success: function () {
-        //         orderForm.submit();
-        //     }
-        // });
+        // orderForm.submit();
     }
 </script>
 </html>

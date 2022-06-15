@@ -12,54 +12,9 @@
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/cart_order.css">
     <script src="/resources/js/jquery.js"></script>
     <title>CHICK</title>
-    <style>
-        * {
-            box-sizing: content-box; !important;
-        }
-        .nav {
-            flex-wrap: nowrap !important;
-            list-style: none !important;
-            text-decoration: none !important;
-            text-decoration-line: none !important;
-            border-collapse: collapse !important;
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        th {
-            font-size: x-large;
-            text-align: center;
-        }
-
-        td {
-            vertical-align: middle;
-            width: 200px;
-            text-align: center;
-        }
-
-        .price {
-            text-decoration-line: line-through;
-            text-decoration-color: red;
-        }
-
-        .discount {
-            color: orange;
-            font-weight: bold;
-            font-size: large;
-        }
-
-        .cart-count {
-            font-size: larger;
-        }
-
-        input {
-            width: 50px;
-        }
-    </style>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
@@ -68,16 +23,17 @@
 <div id="cart-list">
     <table class="table table-hover">
         <tr>
-            <th><i onclick="selectAll()" class="bi bi-check-square"></i></th>
-            <th></th>
+            <th>ALL<br>
+                <input type="checkbox" id="checkAll" class="checkOne" onclick="selectAll()"></th>
             <th>ITEM</th>
             <th>QTY</th>
             <th>PRICE</th>
+            <th></th>
         </tr>
 
         <c:forEach var="cart" items="${cartList}">
             <tr>
-                <td><input type="checkbox" name="goodsId" value="${cart.goodsDTO.id}">
+                <td><input type="checkbox" name="goodsId" class="checkOne" value="${cart.goodsDTO.id}">
                     <img src="${pageContext.request.contextPath}/upload/${cart.goodsDTO.goodsFileName1}" height="120" width="120"></td>
                 <td>${cart.goodsDTO.goodsName}</td>
                 <td class="cart-count">${cart.cartStock}
@@ -207,9 +163,9 @@
                 type: "get",
                 url : "/order/saveForm",
                 data : {"goodsIdArray": goodsIdArray},
-                dataType : "json",
+                dataType : "text",
                 success: function () {
-                    // location.href = "/order/save?result="+result;
+                    location.href="/order/save";
                 }
             });
         }
@@ -217,7 +173,13 @@
 
     const selectAll = () => {
         console.log("함수실행됨");
-        $(":checkbox").attr("checked", "checked");
+
+        if ($("#checkAll").prop("checked")) {
+            $(".checkOne").prop("checked", "true");
+        } else {
+            $(".checkOne").prop("checked", "false");
+        }
+
     }
 </script>
 </html>

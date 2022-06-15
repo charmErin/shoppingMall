@@ -28,8 +28,4 @@
         <result column="cartStock" property="cartStock"/>
         <collection property="goodsDTO" resultMap="goodsDTO"/>
     </resultMap>
-
-    <insert id="save" parameterType="orderPage">
-        insert into
-    </insert>
 </mapper>
