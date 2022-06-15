@@ -55,7 +55,7 @@
             <p></p>
 
             휴대전화('-' 포함)<br>
-            <input type="text" id="userMobile" maxlength="15" name="memberMobile" onblur="mobileCheck()" placeholder="01012345678" required>
+            <input type="text" id="userMobile" maxlength="15" name="memberMobile" onblur="mobileCheck()" placeholder="010-1234-5678" required>
 
             <button type="button" class="btn" onclick="mobileCertify()" style="background-color: rgb(225, 151, 39); border-color: white;">&nbsp;인증번호받기&nbsp;</button>
             <p id="certify-number"></p>

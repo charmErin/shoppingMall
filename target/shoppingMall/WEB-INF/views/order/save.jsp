@@ -22,7 +22,6 @@
     <h2>주문 페이지</h2>
     <form action="/order/save" method="post" name="orderForm">
         <h4>주문정보</h4>
-        주문날짜 : Date()
         주문상품<br>
         <table class="table">
             <tr>
@@ -34,7 +33,6 @@
 
             <c:forEach var="cart" items="${cartList}">
                 <tr>
-                    <input type="hidden" name="goodsIdList" value="${cart.goodsId}">
                     <td><img src="${pageContext.request.contextPath}/upload/${cart.goodsDTO.goodsFileName1}" height="120" width="120"></td>
                     <td class="goodsId">${cart.goodsDTO.goodsName}</td>
                     <td class="cart-count">${cart.cartStock}
@@ -51,7 +49,8 @@
             </c:forEach>
         </table> <br>
         주문자
-        <input class="form-control" type="text" name="memberId" value="${sessionScope.memberName}" readonly>
+        <input class="form-control" type="hidden" name="memberId" value="${sessionScope.memberId}">
+        <input class="form-control" type="text" value="${sessionScope.memberName}" readonly>
         <h4>배송정보</h4>
         받으시는 분
         <input class="form-control" type="text" name="orderName">
@@ -117,16 +116,21 @@
     }
 
     const orderOk = () => {
-        let goodsIdArray = [];
-        $('input[name="goodsIdList"]').each(function(){
-            goodsIdArray.push($(this).val());
-        });
-        console.log(goodsIdArray[0]);
-        console.log(goodsIdArray[1]);
-        console.log(goodsIdArray[2]);
-        console.log(goodsIdArray[3]);
+        // let goodsIdArray = [];
+        // $('input[name="goodsIdList"]').each(function(){
+        //     goodsIdArray.push($(this).val());
+        // });
+        orderForm.submit();
 
-        // orderForm.submit();
+        // $.ajax({
+        //     type: "get",
+        //     url : "/order/save-goods-id",
+        //     data : {"goodsIdArray": goodsIdArray},
+        //     dataType : "text",
+        //     success: function () {
+        //         orderForm.submit();
+        //     }
+        // });
     }
 </script>
 </html>

@@ -161,7 +161,7 @@
 
             $.ajax({
                 type: "get",
-                url : "/order/saveForm",
+                url : "/order/save-form",
                 data : {"goodsIdArray": goodsIdArray},
                 dataType : "text",
                 success: function () {

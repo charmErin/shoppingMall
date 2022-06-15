@@ -22,7 +22,6 @@
     <h2>주문 페이지</h2>
     <form action="/order/save" method="post" name="orderForm">
         <h4>주문정보</h4>
-        주문날짜 : Date()
         주문상품<br>
         <table class="table">
             <tr>
@@ -50,7 +49,8 @@
             </c:forEach>
         </table> <br>
         주문자
-        <input class="form-control" type="text" name="memberId" value="${sessionScope.memberName}" readonly>
+        <input class="form-control" type="hidden" name="memberId" value="${sessionScope.memberId}">
+        <input class="form-control" type="text" value="${sessionScope.memberName}" readonly>
         <h4>배송정보</h4>
         받으시는 분
         <input class="form-control" type="text" name="orderName">

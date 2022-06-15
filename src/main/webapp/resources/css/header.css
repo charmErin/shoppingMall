@@ -53,7 +53,7 @@
     display: flex;
     justify-content: flex-start;
     margin-left: 150px;
-    width: 600px;
+    width: 580px;
 }
 
 .nav li {
@@ -71,15 +71,19 @@
 
 .btn1 {
     display: flex;
-    width: 300px;
+    width: 280px;
     text-align: center;
     justify-content: flex-end;
-    margin: auto 0 auto 20px;
+    margin: auto;
     outline: none;
 }
 
 .btn1 li {
     flex: 1;
+}
+
+.btn1 li:hover {
+    text-decoration-line: underline;
 }
 
 .btn1 li:not(:first-child) {
@@ -97,12 +101,17 @@
     text-align: end;
 }
 
-#toggleIcon li i{
+.toggle_line li i {
     cursor: pointer;
 }
 
 #toggleIcon {
     display: none;
+}
+
+#toggleIcon li:hover {
+    cursor: pointer;
+    text-decoration-line: underline;
 }
 
 /* header_css 완료 */

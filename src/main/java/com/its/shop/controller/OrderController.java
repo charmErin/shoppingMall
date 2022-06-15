@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -22,8 +23,6 @@ public class OrderController {
     @GetMapping("/save-form")
     public @ResponseBody String saveForm(@RequestParam(value="goodsIdArray[]") List<Long> goodsIdArray, Model model) {
         cartDTOList = orderService.goodsList(goodsIdArray);
-        model.addAttribute("goodsList", cartDTOList);
-        System.out.println(cartDTOList);
         return "ok";
     }
 
@@ -40,9 +39,20 @@ public class OrderController {
 
     @PostMapping("/save")
     public String save(@ModelAttribute OrderPageDTO orderPageDTO,
-                       Model model) {
+                       Model model, HttpSession session) {
         orderService.save(orderPageDTO);
-        return null;
+        String memberId = (String)session.getAttribute("memberId");
+        List<OrderPageDTO> orderPageDTOList = orderService.findAll(memberId);
+        model.addAttribute("orderList", orderPageDTOList);
+        return "order/list";
+    }
+
+    @GetMapping("/findAll")
+    public String findAll(HttpSession session, Model model) {
+        String memberId = (String)session.getAttribute("memberId");
+        List<OrderPageDTO> orderPageDTOList = orderService.findAll(memberId);
+        model.addAttribute("orderList", orderPageDTOList);
+        return "order/list";
     }
 
 }

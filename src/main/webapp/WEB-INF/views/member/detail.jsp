@@ -47,6 +47,7 @@
             <button onclick="memberDelete()">회원삭제</button>
         </c:otherwise>
     </c:choose>
+    <hr>
 </body>
 <script>
     const memberUpdate = () => {

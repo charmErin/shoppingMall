@@ -21,4 +21,8 @@ public class OrderRepository {
     public void save(OrderPageDTO orderPageDTO) {
         sql.insert("Order.save", orderPageDTO);
     }
+
+    public List<OrderPageDTO> findAll(String memberId) {
+        return sql.selectList("Order.findAll", memberId);
+    }
 }

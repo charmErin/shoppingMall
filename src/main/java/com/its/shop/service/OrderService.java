@@ -21,4 +21,8 @@ public class OrderService {
     public void save(OrderPageDTO orderPageDTO) {
         orderRepository.save(orderPageDTO);
     }
+
+    public List<OrderPageDTO> findAll(String memberId) {
+        return orderRepository.findAll(memberId);
+    }
 }

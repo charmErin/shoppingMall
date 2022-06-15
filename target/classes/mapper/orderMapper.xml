@@ -28,4 +28,13 @@
         <result column="cartStock" property="cartStock"/>
         <collection property="goodsDTO" resultMap="goodsDTO"/>
     </resultMap>
+
+    <insert id="save" parameterType="orderPage">
+        insert into chick_orderPage (memberId, orderName, orderZipCode, orderAddress, orderAddDetail ,orderMobile, deliveryMsg)
+            values (#{memberId}, #{orderName}, #{orderZipCode}, #{orderAddress}, #{orderAddDetail}, #{orderMobile}, #{deliveryMsg})
+    </insert>
+
+    <select id="findAll" parameterType="String" resultType="orderPage">
+        select * from chick_orderpage where memberId=#{memberId} order by id desc
+    </select>
 </mapper>
