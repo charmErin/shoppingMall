@@ -40,7 +40,7 @@
                         <c:when test="${sessionScope.memberName ne '관리자'}">
                             <ul class="btn1">
                                 <li></li>
-                                <li>${sessionScope.memberName}</li>
+                                <li onclick="memberDetail()">${sessionScope.memberName}</li>
                                 <li onclick="cartList()"><i class="bi bi-cart"></i></li>
                             </ul>
                         </c:when>
@@ -66,7 +66,7 @@
                 <li>
                     <i onclick="toggleCondition()" class="bi bi-list"></i><br>
                     <ul id="toggleIcon">
-                        <li onclick="memberDetail()">마이페이지</li>
+                        <li onclick="orderList()">주문목록</li>
                         <li>위시리스트</li>
                         <li onclick="memberLogout()">로그아웃</li>
                     </ul>
@@ -110,6 +110,9 @@
         location.href = "/cart/findAll";
     }
 
+    const orderList = () => {
+        location.href = "/order/findAll";
+    }
 //    admin 전용
     const goodsSave = () => {
         location.href = "/goods/save-form";
