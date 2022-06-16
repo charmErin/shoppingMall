@@ -13,6 +13,8 @@
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/css/cart_order.css">
+    <!-- iamport.payment.js -->
+    <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js" type="text/javascript"></script>
     <title>CHICK</title>
 </head>
 <body>
@@ -39,10 +41,10 @@
                     <c:choose>
                         <c:when test="${cart.goodsDTO.goodsDiscount ne 0}">
                             <td><p class="price">${cart.goodsDTO.goodsPrice * cart.cartStock}원</p>
-                                <p class="discount"><fmt:formatNumber type="number" pattern="0" value="${(cart.goodsDTO.goodsPrice * (1-cart.goodsDTO.goodsDiscount)) * cart.cartStock}"/>원</p></td>
+                                <p class="real-price"><fmt:formatNumber type="number" pattern="0" value="${(cart.goodsDTO.goodsPrice * (1-cart.goodsDTO.goodsDiscount)) * cart.cartStock}"/></p></td>
                         </c:when>
                         <c:otherwise>
-                            <td>${cart.goodsDTO.goodsPrice * cart.cartStock}원</td>
+                            <td class="real-price">${cart.goodsDTO.goodsPrice * cart.cartStock}</td>
                         </c:otherwise>
                     </c:choose>
                 </tr>
@@ -53,9 +55,9 @@
         <input class="form-control" type="text" value="${sessionScope.memberName}" readonly>
         <h4>배송정보</h4>
         받으시는 분
-        <input class="form-control" type="text" name="orderName">
+        <input class="form-control" id="orderName" type="text" name="orderName">
         휴대전화('-' 포함)
-        <input class="form-control" type="text" name="orderMobile" placeholder="010-1234-5678" required>
+        <input class="form-control" type="text" id="orderMobile" name="orderMobile" placeholder="010-1234-5678" required>
         주소
         <div class="input-group">
             <input class="form-control" type="text" id="sample6_postcode" name="orderZipCode" placeholder="우편번호"> &nbsp;
@@ -66,11 +68,12 @@
         배송메시지
         <input class="form-control" type="text" name="deliveryMsg">
         주문 금액
-        <input class="form-control" type="text" value="총합">
+        <input class="form-control" id="sum_price" class="btn btn-outline-info" type="button" value="총 상품가격 보기">
         배송비
         <input class="form-control" type="text" name="deliveryCharge" value="3000" readonly>
-        총 주문금액 : (주문금액 value + 배송비)<br>
-        <button class="btn btn-outline-primary d-grid mx-auto m-4" onclick="orderOk()">주문하기</button>
+        총 주문금액 (주문금액 + 배송비)<br>
+        <input class="form-control" type="text" id="lastSum" name="lastSum" value="" readonly>
+        <button type="button" class="btn btn-outline-primary d-grid mx-auto m-4" onclick="orderOk()">결제하기</button>
     </form>
 </div>
 </body>
@@ -91,7 +94,7 @@
                 } else { // 사용자가 지번 주소를 선택했을 경우(J)
                     addr = data.jibunAddress;
                 }
-
+                
                 // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
                 if(data.userSelectedType === 'R'){
                     // 법정동명이 있을 경우 추가한다. (법정리는 제외)
@@ -115,22 +118,63 @@
         }).open();
     }
 
-    const orderOk = () => {
-        // let goodsIdArray = [];
-        // $('input[name="goodsIdList"]').each(function(){
-        //     goodsIdArray.push($(this).val());
-        // });
-        orderForm.submit();
+    window.onload = () => {
+        let orderPrice = [];
+        orderPrice = document.getElementsByClassName("real-price");
+        const sumPrice = document.getElementById("sum_price");
+        const lastSum = document.getElementById("lastSum");
+        let sum = 0;
 
-        // $.ajax({
-        //     type: "get",
-        //     url : "/order/save-goods-id",
-        //     data : {"goodsIdArray": goodsIdArray},
-        //     dataType : "text",
-        //     success: function () {
-        //         orderForm.submit();
-        //     }
-        // });
+        for (let i=0; i<orderPrice.length; i++) {
+            sum += parseInt(orderPrice[i].innerHTML);
+        }
+
+        sumPrice.value = sum;
+        sumPrice.type = "text";
+        sumPrice.setAttribute("readonly", "true");
+
+        lastSum.value = sum + 3000;
     }
+
+
+
+
+    const orderOk = () => {
+        const orderName = document.getElementById("orderName").value;
+        const orderMobile = document.getElementById("orderMobile").value;
+        const orderPostcode = document.getElementById("sample6_postcode").value;
+        const orderAdd = document.getElementById("sample6_address").value;
+        const lastSum = document.getElementById("lastSum").value;
+
+        var IMP = window.IMP; // 생략 가능
+        IMP.init("imp97023940");
+
+        // IMP.request_pay(param, callback) 결제창 호출
+        IMP.request_pay({ // param
+            pg: "kakaopay",
+            pay_method: "card",
+            merchant_uid: "merchant_" + new Date().getTime(),
+            name: "상품 결제",
+            amount: lastSum,
+            // buyer_email: "gildong@gmail.com",
+            buyer_name: orderName,
+            buyer_tel: orderMobile,
+            buyer_addr: orderAdd,
+            buyer_postcode: orderPostcode
+        }, function (rsp) { // callback
+            if (rsp.success) {
+                console.log("성공");
+                orderForm.submit();
+                // 결제 성공 시 로직,
+
+            } else {
+                console.log("결제실패");
+                // 결제 실패 시 로직,
+            }
+        });
+    }
+
+
+
 </script>
 </html>

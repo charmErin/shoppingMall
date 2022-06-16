@@ -28,10 +28,10 @@
 
             <ul class="nav">
                 <li><a href="/">HOME</a></li>
-                <li><a href="/goods/1">TOP</a></li>
-                <li><a href="/goods/2">BOTTOM</a></li>
-                <li><a href="/goods/3">SHOES</a></li>
-                <li><a href="/goods/4">ACC</a></li>
+                <li><a href="/goods/category?category=1">TOP</a></li>
+                <li><a href="/goods/category?category=2">BOTTOM</a></li>
+                <li><a href="/goods/category?category=3">SHOES</a></li>
+                <li><a href="/goods/category?category=4">ACC</a></li>
             </ul>
 
             <c:choose>

@@ -9,12 +9,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <title>CHICK</title>
+    <style>
+        h2 {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+    </style>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
+<div class="container col-3">
     <h2>회원상세정보</h2>
-    <table style="border-color: black">
+    <table class="table">
         <tr>
             <th>아이디</th>
             <td>${member.memberId}</td>
@@ -34,20 +42,22 @@
             <td>${member.memberEmail}</td>
         </tr>
         <tr>
-            <th>전화번호</th>
+            <th>휴대전화</th>
             <td>${member.memberMobile}</td>
         </tr>
     </table>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
     <c:choose>
         <c:when test="${member.memberName eq sessionScope.memberName}">
-            <button onclick="memberUpdate()">정보수정</button>
-            <button onclick="memberDelete()">회원탈퇴</button>
+            <button class="btn btn-outline-primary d-grid" onclick="memberUpdate()">정보수정</button>
+            <button class="btn btn-outline-dark" onclick="memberDelete()">회원탈퇴</button>
         </c:when>
         <c:otherwise>
-            <button onclick="memberDelete()">회원삭제</button>
+            <button class="btn btn-outline-dark" onclick="memberDelete()">회원삭제</button>
         </c:otherwise>
     </c:choose>
-    <hr>
+    </div>
+</div>
 </body>
 <script>
     const memberUpdate = () => {

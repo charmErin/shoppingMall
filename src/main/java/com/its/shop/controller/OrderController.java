@@ -1,6 +1,7 @@
 package com.its.shop.controller;
 
 import com.its.shop.dto.CartDTO;
+import com.its.shop.dto.OrderGoodsDTO;
 import com.its.shop.dto.OrderPageDTO;
 import com.its.shop.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +33,12 @@ public class OrderController {
         return "order/save";
     }
 
-//    @GetMapping("/save-goods-id")
-//    public String saveGoodsId() {
-//
-//    }
-
     @PostMapping("/save")
     public String save(@ModelAttribute OrderPageDTO orderPageDTO,
                        Model model, HttpSession session) {
         orderService.save(orderPageDTO);
+        Long id = (Long) session.getAttribute("id");
+        orderService.sailUpdate(cartDTOList, orderPageDTO.getId(), id);
         String memberId = (String)session.getAttribute("memberId");
         List<OrderPageDTO> orderPageDTOList = orderService.findAll(memberId);
         model.addAttribute("orderList", orderPageDTOList);

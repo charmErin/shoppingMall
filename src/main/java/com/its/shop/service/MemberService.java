@@ -37,4 +37,13 @@ public class MemberService {
     public void delete(Long id) {
         memberRepository.delete(id);
     }
+
+    public String duplicateCheck(String memberId) {
+        MemberDTO result = memberRepository.duplicateCheck(memberId);
+        if (result == null) {
+            return "ok";
+        } else {
+            return "no";
+        }
+    }
 }

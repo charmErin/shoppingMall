@@ -33,6 +33,15 @@
     <insert id="cartAdd" parameterType="cart">
         insert into chick_cart (memberId, goodsId) values (#{memberId}, #{goodsId})
     </insert>
+
+    <select id="count">
+        select count(id) from chick_goods
+    </select>
+
+    <update id="sailUpdate" parameterType="java.util.HashMap">
+        update chick_goods set goodsSailCount=goodsSailCount + #{cartStock}, goodsStock=goodsStock - #{cartStock}
+            where id=#{goodsId}
+    </update>
 </mapper>
 
 

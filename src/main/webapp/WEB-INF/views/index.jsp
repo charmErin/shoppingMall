@@ -12,9 +12,6 @@
 </head>
 <body>
 <jsp:include page="./layout/header.jsp" flush="false"></jsp:include>
-    <p id="text0">MainPage 첫화면</p>
+<img src="../../../resources/img/main.PNG">
 </body>
-<script>
-
-</script>
 </html>

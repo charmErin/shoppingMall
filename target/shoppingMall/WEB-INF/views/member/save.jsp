@@ -11,59 +11,67 @@
 <%--    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">--%>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="/resources/js/jquery.js"></script>
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 <%--    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>--%>
     <title>CHICK</title>
     <style>
-        input {
-            height: 30px;
+        h2 {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        #icon0 {
+            margin-top: 5px;
         }
     </style>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
-    <div class="big-box">
-        <div class="join">
+    <div class="container col-3">
             <h2>회원가입</h2>
-        </div>
 
         <form action="/member/save" method="post" name="saveForm">
             아이디<br>
-            <input type="text" name="memberId" id="user-id" onblur="idCheck()">
+            <input class="form-control" type="text" name="memberId" id="user-id" onblur="idCheck()" autofocus>
             <!-- 5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능 -->
             <p id="id-check"></p>
 
-            비밀번호<br>
-            <input type="password" name="memberPassword" id="user-pw" onblur="pwCheck()">
-            <!-- 5~16자 영문 대 소문자, 숫자, 특수문자( ),(-),(_),(!),(#),($)를 사용 가능 -->
-            <i onclick="eyeIcon()" id="icon0" class="eyeIcon bi bi-eye-fill" style="background-color: rgb(225, 151, 39); color: white; border-color:white;"></i>
+            비밀번호
+            <div class="input-group">
+                <input class="form-control" type="password" name="memberPassword" id="user-pw" onblur="pwCheck()">&nbsp;&nbsp;
+                <!-- 5~16자 영문 대 소문자, 숫자, 특수문자( ),(-),(_),(!),(#),($)를 사용 가능 -->
+                <i onclick="eyeIcon()" id="icon0" class="eyeIcon bi bi-eye-fill fs-3"></i>
+            </div>
             <p id="pw-check"></p>
 
-            이름(실명)<br>
-            <input type="text" name="memberName" maxlength="10" required>
+            이름(실명)
+            <input class="form-control" type="text" name="memberName" maxlength="10" required>
             <p></p>
 
-            주소<br>
-            <input type="text" id="sample6_postcode" name="memberZipCode" placeholder="우편번호">
-            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-            <input type="text" id="sample6_address" name="memberAddress" placeholder="주소"><br>
-            <input type="text" id="sample6_detailAddress" name="memberAddDetail" placeholder="상세주소"><br>
+            주소
+            <div class="input-group">
+                <input class="form-control" type="text" id="sample6_postcode" name="memberZipCode" placeholder="우편번호">
+                <input class="form-control" type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+            </div>
+            <input class="form-control" type="text" id="sample6_address" name="memberAddress" placeholder="주소">
+            <input class="form-control" type="text" id="sample6_detailAddress" name="memberAddDetail" placeholder="상세주소">
             <p></p>
 
-            본인 확인 이메일(선택)<br>
-            <input type="email" name="memberEmail" maxlength="30">
+            본인 확인 이메일(선택)
+            <input class="form-control" type="email" name="memberEmail" maxlength="30">
             <p></p>
 
-            휴대전화('-' 포함)<br>
-            <input type="text" id="userMobile" maxlength="15" name="memberMobile" onblur="mobileCheck()" placeholder="010-1234-5678" required>
-
-            <button type="button" class="btn" onclick="mobileCertify()" style="background-color: rgb(225, 151, 39); border-color: white;">&nbsp;인증번호받기&nbsp;</button>
+            휴대전화('-' 포함)
+            <div class="input-group">
+                <input class="form-control" type="text" id="userMobile" maxlength="15" name="memberMobile" onblur="mobileCheck()" placeholder="010-1234-5678" required>
+                <button type="button" class="btn btn-outline-warning" onclick="mobileCertify()">&nbsp;인증번호받기&nbsp;</button>
+            </div>
             <p id="certify-number"></p>
             <p id="mobile-check"></p>
 
-            <div class="d-grid gap-2 col-12 mx-auto signButton">
-                <input type="button" onclick="mSave()" class="btn btn-warning btn-lg" style="background-color: rgb(249, 210, 39);" value="회원가입">
-            </div>
+
+            <input type="button" onclick="mSave()" class="btn btn-warning btn-lg d-grid mx-auto" value="회원가입">
         </form>
     </div>
 
@@ -73,11 +81,11 @@
 </body>
 <script>
     function idCheck() {
-        const userId = document.getElementById("user-id").value;
+        const memberId = document.getElementById("user-id").value;
         const exp = /^(?=.*[a-z])[a-z\d-_]{5,20}$/
         const idCheck = document.getElementById("id-check");
 
-        if(userId.match(exp)){
+        if(memberId.match(exp)){
             idCheck.innerHTML = "사용가능한 아이디입니다.";
             idCheck.style.color = "green";
         } else {
@@ -85,6 +93,19 @@
             idCheck.innerHTML += "숫자, 특수문자(-),(_)만 사용 가능합니다.";
             idCheck.style.color = "red";
         }
+
+        $.ajax({
+            type: "post",
+            url: "/member/duplicate-check",
+            data: {"memberId": memberId},
+            dataType: "text",
+            success: function (result){
+                if(result == "no") {
+                    idCheck.innerHTML = "이미 사용중인 아이디입니다.";
+                    idCheck.style.color = "red";
+                }
+            }
+        });
     }
 
     function pwCheck() {
@@ -107,10 +128,10 @@
 
         if(pw.type === "password"){
             pw.type = "text";
-            icon.className="bi bi-eye-slash";
+            icon.className="bi bi-eye-slash fs-3";
         } else {
             pw.type = "password";
-            icon.className="bi bi-eye-fill";
+            icon.className="bi bi-eye-fill fs-3";
         }
     }
 

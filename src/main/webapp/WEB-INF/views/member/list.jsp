@@ -9,12 +9,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <title>CHICK</title>
+    <style>
+        h2 {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        a {
+            text-decoration-line: none;
+            color: #000;
+        }
+
+        a:hover {
+            text-decoration-line: underline;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
+<div class="container">
     <h2>회원목록</h2>
-    <table style="border-width: 1px">
+    <table class="table table-hover">
       <tr>
         <th>회원번호</th>
         <th>아이디</th>
@@ -30,5 +48,6 @@
         </tr>
       </c:forEach>
     </table>
+</div>
 </body>
 </html>

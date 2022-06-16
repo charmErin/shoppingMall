@@ -29,4 +29,8 @@
     <delete id="delete" parameterType="Long">
         delete from chick_member where id=#{id}
     </delete>
+
+    <select id="duplicateCheck" parameterType="String" resultType="member">
+        select * from chick_member where memberId=#{memberId}
+    </select>
 </mapper>

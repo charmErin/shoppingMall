@@ -15,6 +15,12 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/cart_order.css">
     <script src="/resources/js/jquery.js"></script>
     <title>CHICK</title>
+    <style>
+        .no_cartList {
+            text-align: center;
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
@@ -58,10 +64,20 @@
             </tr>
         </c:forEach>
     </table>
-    <div class="d-flex justify-content-end">
-        <button class="btn btn-outline-primary" onclick="orderGo()">주문하기</button>
-    </div>
 </div>
+    <c:choose>
+        <c:when test="${cartList.isEmpty()}">
+            <div class="no_cartList">
+                장바구니에 담은 상품이 없습니다.
+            </div>
+        </c:when>
+        <c:otherwise>
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-outline-primary" onclick="orderGo()">주문하기</button>
+            </div>
+
+        </c:otherwise>
+    </c:choose>
 </div>
 
 </body>
@@ -77,14 +93,14 @@
             dataType: "json",
             success: function(result) {
                 let output = '<table class="table table-hover">';
-                    output += '<tr><th><i onclick="selectAll()" class="bi bi-check-square"></i></th>';
+                    output += '<tr><th>ALL<br><input type="checkbox" id="checkAll" class="checkOne" onclick="selectAll()"></th>';
                     output += '<th>ITEM</th>';
                     output += '<th>QTY</th>';
                     output += '<th>PRICE</th><th></th></tr>';
 
                 for (let i in result) {
-                    output += '<tr>' + '<input type="checkbox" name="goodsId" value="${cart.goodsDTO.id}">';
-                    output += '<td>' + '<img src="' + '${pageContext.request.contextPath}' + '/upload/' + result[i].goodsDTO.goodsFileName1 + '" height="120" width="120">' + '</td>';
+                    output += '<tr>' + '<td><input type="checkbox" name="goodsId" value="${cart.goodsDTO.id}">';
+                    output += '<img src="' + '${pageContext.request.contextPath}' + '/upload/' + result[i].goodsDTO.goodsFileName1 + '" height="120" width="120">' + '</td>';
                     output += '<td>' + result[i].goodsDTO.goodsName + '</td>';
                     output += '<td class="cart-count">' + result[i].cartStock + '&nbsp;';
                     if (result[i].cartStock < result[i].goodsDTO.goodsStock) {
@@ -117,14 +133,14 @@
             dataType: "json",
             success: function(result) {
                 let output = '<table class="table table-hover">';
-                output += '<tr><th><i onclick="selectAll()" class="bi bi-check-square"></i></th>';
+                output += '<tr><th>ALL<br><input type="checkbox" id="checkAll" class="checkOne" onclick="selectAll()"></th>';
                 output += '<th>ITEM</th>';
                 output += '<th>QTY</th>';
                 output += '<th>PRICE</th><th></th></tr>';
 
                 for (let i in result) {
-                    output += '<tr>' + '<input type="checkbox" name="goodsId" value="${cart.goodsDTO.id}">';
-                    output += '<td>' + '<img src="' + '${pageContext.request.contextPath}' + '/upload/' + result[i].goodsDTO.goodsFileName1 + '" height="120" width="120">' + '</td>';                    output += '<td>' + result[i].goodsDTO.goodsName + '</td>';
+                    output += '<tr>' + '<td><input type="checkbox" name="goodsId" value="${cart.goodsDTO.id}">';
+                    output += '<img src="' + '${pageContext.request.contextPath}' + '/upload/' + result[i].goodsDTO.goodsFileName1 + '" height="120" width="120">' + '</td>';                    output += '<td>' + result[i].goodsDTO.goodsName + '</td>';
                     output += '<td class="cart-count">' + result[i].cartStock + '&nbsp;';
                     if (result[i].cartStock < result[i].goodsDTO.goodsStock) {
                         output += '<i onclick="cartCountPlus(' + result[i].goodsDTO.id + ')" class="bi bi-bag-plus"></i>&nbsp;';

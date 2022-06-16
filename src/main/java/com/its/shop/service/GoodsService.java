@@ -2,6 +2,7 @@ package com.its.shop.service;
 
 import com.its.shop.dto.CartDTO;
 import com.its.shop.dto.GoodsDTO;
+import com.its.shop.dto.PageDTO;
 import com.its.shop.repository.GoodsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class GoodsService {
@@ -39,13 +42,10 @@ public class GoodsService {
         goodsRepository.save(goodsDTO);
     }
 
-    public List<GoodsDTO> findAll() {
-        return goodsRepository.findAll();
-    }
-
     public List<GoodsDTO> list(int goodsCategory) {
         return goodsRepository.list(goodsCategory);
     }
+
 
     public GoodsDTO findById(Long id) {
         return goodsRepository.findById(id);

@@ -23,6 +23,7 @@ public class GoodsController {
 
     @Autowired
     private ReviewService reviewService;
+    private int o;
 
     @GetMapping("/save-form")
     public String saveForm() {
@@ -36,36 +37,20 @@ public class GoodsController {
         return "index";
     }
 
-    @GetMapping("/1")
-    public String top(Model model) {
-        int category = 1;
+    @GetMapping("/category")
+    public String top(@RequestParam int category, Model model) {
         List<GoodsDTO> goodsDTOList = goodsService.list(category);
+        model.addAttribute("category", category);
         model.addAttribute("goodsList", goodsDTOList);
-        return "goods/top";
-    }
-
-    @GetMapping("/2")
-    public String bottom(Model model) {
-        int category = 2;
-        List<GoodsDTO> goodsDTOList = goodsService.list(category);
-        model.addAttribute("goodsList", goodsDTOList);
-        return "goods/bottom";
-    }
-
-    @GetMapping("/3")
-    public String shoes(Model model) {
-        int category = 3;
-        List<GoodsDTO> goodsDTOList = goodsService.list(category);
-        model.addAttribute("goodsList", goodsDTOList);
-        return "goods/shoes";
-    }
-
-    @GetMapping("/4")
-    public String acc(Model model) {
-        int category = 4;
-        List<GoodsDTO> goodsDTOList = goodsService.list(category);
-        model.addAttribute("goodsList", goodsDTOList);
-        return "goods/acc";
+        if (category == 1) {
+            return "goods/goods";
+        } else if (category == 2) {
+            return "goods/goods";
+        } else if (category == 3) {
+            return "goods/goods";
+        } else {
+            return "goods/goods";
+        }
     }
 
     @GetMapping("/detail")

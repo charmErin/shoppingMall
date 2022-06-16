@@ -1,12 +1,14 @@
 package com.its.shop.repository;
 
 import com.its.shop.dto.CartDTO;
+import com.its.shop.dto.OrderGoodsDTO;
 import com.its.shop.dto.OrderPageDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class OrderRepository {
@@ -25,4 +27,14 @@ public class OrderRepository {
     public List<OrderPageDTO> findAll(String memberId) {
         return sql.selectList("Order.findAll", memberId);
     }
+
+
+    public void sailUpdate(Map<String, Long> goodsIdCartStock) {
+        sql.update("Goods.sailUpdate", goodsIdCartStock);
+    }
+
+    public void orderGoodsSave(Map<String, Long> goodsIdCartStock) {
+        sql.insert("Order.orderGoods", goodsIdCartStock);
+    }
+
 }

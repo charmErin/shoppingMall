@@ -4,7 +4,7 @@ h1 {
 }
 
 .page0 {
-    width: 1122px;
+    width: 1125px;
     display: flex;
     margin: auto;
 }
@@ -16,6 +16,8 @@ h1 {
 
 .spanList {
     flex: 4;
+    width: 350px;
+    height: 500px;
     display: inline-block;
     margin-right: 20px;
     margin-bottom: 20px;

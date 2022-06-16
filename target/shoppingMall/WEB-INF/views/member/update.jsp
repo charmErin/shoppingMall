@@ -9,48 +9,53 @@
 <html>
 <head>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <title>CHICK</title>
+    <style>
+        h2 {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+    </style>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
-<div class="big-box">
-    <div class="join">
+<div class="container col-4">
         <h2>회원정보수정</h2>
-    </div>
-    <div>
         <form action="/member/update" method="post" name="updateForm">
             <input type="hidden" name="id" value="${member.id}">
-            <table>
+            <table class="table">
                 <tr>
                     <th>아이디</th>
-                    <td><input type="text" name="memberId" value="${member.memberId}" readonly></td>
+                    <td><input class="form-control" type="text" name="memberId" value="${member.memberId}" readonly></td>
                 </tr>
                 <tr>
                     <th>비밀번호</th>
-                    <td><input type="password" name="memberPassword" id="member-pw"></td>
+                    <td><input class="form-control" type="password" name="memberPassword" id="member-pw"></td>
                 </tr>
                 <tr>
                     <th>이름(실명)</th>
-                    <td><input type="text" name="memberName" maxlength="10" value="${member.memberName}" readonly></td>
+                    <td><input class="form-control" type="text" name="memberName" maxlength="10" value="${member.memberName}" readonly></td>
                 </tr>
                 <tr>
                     <th>주소</th>
-                    <td><input type="text" id="sample6_postcode" name="memberZipCode" value="${member.memberZipCode}">
-                        <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-                        <input type="text" id="sample6_address" name="memberAddress" value="${member.memberAddress}"><br>
-                        <input type="text" id="sample6_detailAddress" name="memberAddDetail" value="${member.memberAddDetail}"></td>
+                    <td><div class="input-group">
+                            <input class="form-control" type="text" id="sample6_postcode" name="memberZipCode" value="${member.memberZipCode}">
+                            <input class="form-control" type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
+                        </div>
+                        <input class="form-control" type="text" id="sample6_address" name="memberAddress" value="${member.memberAddress}">
+                        <input class="form-control" type="text" id="sample6_detailAddress" name="memberAddDetail" value="${member.memberAddDetail}"></td>
                 </tr>
                 <tr>
                     <th>이메일</th>
-                    <td><input type="email" name="memberEmail" maxlength="30" value="${member.memberEmail}"></td>
+                    <td><input class="form-control" type="email" name="memberEmail" maxlength="30" value="${member.memberEmail}"></td>
                 </tr>
                 <tr>
-                    <th>휴대전화('-' 미포함)</th>
-                    <td><input type="text" maxlength="15" name="memberMobile" value="${member.memberMobile}"></td>
+                    <th>휴대전화('-'포함)</th>
+                    <td><input class="form-control" type="text" maxlength="15" name="memberMobile" value="${member.memberMobile}"></td>
             </table>
-            <input type="button" onclick="mUpdate()" class="btn btn-warning btn-lg" style="background-color: rgb(249, 210, 39);" value="수정하기">
+            <input class="form-control" type="button" onclick="mUpdate()" class="btn btn-warning btn-lg" style="background-color: rgb(249, 210, 39);" value="수정하기">
         </form>
-    </div>
 </div>
 </body>
 <script>

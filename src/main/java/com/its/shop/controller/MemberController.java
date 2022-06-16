@@ -28,6 +28,12 @@ public class MemberController {
         return "member/login";
     }
 
+    @PostMapping("/duplicate-check")
+    public @ResponseBody String duplicateCheck(@RequestParam String memberId) {
+        System.out.println("memberId = " + memberId);
+        return memberService.duplicateCheck(memberId);
+    }
+
     @GetMapping("/login-form")
     public String loginForm() {
         return "member/login";
