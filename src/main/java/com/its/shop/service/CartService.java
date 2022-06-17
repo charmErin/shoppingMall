@@ -26,7 +26,7 @@ public class CartService {
         cartRepository.countAdd(cartDTO);
     }
 
-    public List<CartDTO> findAll(String memberId) {
+    public List<CartDTO> findAll(Long memberId) {
         return cartRepository.findAll(memberId);
     }
 
@@ -38,4 +38,6 @@ public class CartService {
     public void delete(CartDTO cartDTO) {
         cartRepository.delete(cartDTO);
     }
+
+
 }

@@ -3,11 +3,11 @@ package com.its.shop.service;
 import com.its.shop.dto.CartDTO;
 import com.its.shop.dto.OrderGoodsDTO;
 import com.its.shop.dto.OrderPageDTO;
+import com.its.shop.repository.CartRepository;
 import com.its.shop.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +17,8 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CartRepository cartRepository;
 
     public List<CartDTO> goodsList(List<Long> id) {
         return orderRepository.goodsList(id);
@@ -26,7 +28,7 @@ public class OrderService {
         orderRepository.save(orderPageDTO);
     }
 
-    public List<OrderPageDTO> findAll(String memberId) {
+    public List<OrderGoodsDTO> findAll(Long memberId) {
         return orderRepository.findAll(memberId);
     }
 
@@ -41,7 +43,22 @@ public class OrderService {
             goodsIdCartStock.put("orderPrice", (long) cartDTOList.get(i).getGoodsDTO().getGoodsPrice() * cartDTOList.get(i).getCartStock());
             orderRepository.sailUpdate(goodsIdCartStock);
             orderRepository.orderGoodsSave(goodsIdCartStock);
+            CartDTO cartDTO = new CartDTO();
+            cartDTO.setMemberId(memberId);
+            cartDTO.setGoodsId(cartDTOList.get(i).getGoodsId());
+            cartRepository.delete(cartDTO);
         }
 
+    }
+
+    public OrderPageDTO findOrder(Long id) {
+        return orderRepository.findOrder(id);
+    }
+
+    public OrderGoodsDTO findGoods(Long orderId, Long goodsId) {
+        Map<String, Long> orderGoods = new HashMap<>();
+        orderGoods.put("orderId", orderId);
+        orderGoods.put("goodsId", goodsId);
+        return orderRepository.findGoods(orderGoods);
     }
 }

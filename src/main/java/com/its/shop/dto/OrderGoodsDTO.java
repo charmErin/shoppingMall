@@ -8,6 +8,8 @@ public class OrderGoodsDTO {
     private Long memberId;
     private Long orderId;
     private Long goodsId;
-    private int orderCount;
+    private int cartCount;
     private int orderPrice;
+
+    private OrderPageDTO orderPageDTO;
 }

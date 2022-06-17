@@ -20,7 +20,7 @@ public class CartController {
     @GetMapping("/save")
     public String save(@RequestParam Long goodsId,
                        HttpSession session) {
-        String memberId = (String) session.getAttribute("memberId");
+        Long memberId = (Long) session.getAttribute("id");
         CartDTO cartDTO = new CartDTO();
         cartDTO.setMemberId(memberId);
         cartDTO.setGoodsId(goodsId);
@@ -35,7 +35,7 @@ public class CartController {
 
     @GetMapping("/findAll")
     public String findAll (HttpSession session, Model model) {
-        String memberId = (String) session.getAttribute("memberId");
+        Long memberId = (Long) session.getAttribute("id");
         List<CartDTO> cartDTOList = cartService.findAll(memberId);
         model.addAttribute("cartList", cartDTOList);
         return "cart/list";
@@ -57,7 +57,7 @@ public class CartController {
 
     @GetMapping("/delete")
     public String delete (@ModelAttribute CartDTO cartDTO, HttpSession session, Model model) {
-        String memberId = (String) session.getAttribute("memberId");
+        Long memberId = (Long) session.getAttribute("id");
         cartDTO.setMemberId(memberId);
         cartService.delete(cartDTO);
         List<CartDTO> cartDTOList = cartService.findAll(memberId);

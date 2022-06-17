@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class CartRepository {
@@ -24,7 +25,7 @@ public class CartRepository {
         sql.update("Cart.countAdd", cartDTO);
     }
 
-    public List<CartDTO> findAll(String memberId) {
+    public List<CartDTO> findAll(Long memberId) {
         return sql.selectList("Cart.findAll", memberId);
     }
 

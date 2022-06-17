@@ -24,7 +24,7 @@ public class OrderRepository {
         sql.insert("Order.save", orderPageDTO);
     }
 
-    public List<OrderPageDTO> findAll(String memberId) {
+    public List<OrderGoodsDTO> findAll(Long memberId) {
         return sql.selectList("Order.findAll", memberId);
     }
 
@@ -37,4 +37,11 @@ public class OrderRepository {
         sql.insert("Order.orderGoods", goodsIdCartStock);
     }
 
+    public OrderPageDTO findOrder(Long id) {
+        return sql.selectOne("Order.findOrder", id);
+    }
+
+    public OrderGoodsDTO findGoods(Map<String, Long> orderId) {
+        return sql.selectOne("Order.findGoods", orderId);
+    }
 }

@@ -51,7 +51,7 @@
             </c:forEach>
         </table> <br>
         주문자
-        <input class="form-control" type="hidden" name="memberId" value="${sessionScope.memberId}">
+        <input class="form-control" type="hidden" name="memberId" value="${sessionScope.id}">
         <input class="form-control" type="text" value="${sessionScope.memberName}" readonly>
         <h4>배송정보</h4>
         받으시는 분
@@ -72,7 +72,7 @@
         배송비
         <input class="form-control" type="text" name="deliveryCharge" value="3000" readonly>
         총 주문금액 (주문금액 + 배송비)<br>
-        <input class="form-control" type="text" id="lastSum" name="lastSum" value="" readonly>
+        <input class="form-control" type="text" id="orderSum" name="orderSum" value="" readonly>
         <button type="button" class="btn btn-outline-primary d-grid mx-auto m-4" onclick="orderOk()">결제하기</button>
     </form>
 </div>
@@ -122,7 +122,7 @@
         let orderPrice = [];
         orderPrice = document.getElementsByClassName("real-price");
         const sumPrice = document.getElementById("sum_price");
-        const lastSum = document.getElementById("lastSum");
+        const orderSum = document.getElementById("orderSum");
         let sum = 0;
 
         for (let i=0; i<orderPrice.length; i++) {
@@ -133,7 +133,7 @@
         sumPrice.type = "text";
         sumPrice.setAttribute("readonly", "true");
 
-        lastSum.value = sum + 3000;
+        orderSum.value = sum + 3000;
     }
 
 
@@ -144,7 +144,7 @@
         const orderMobile = document.getElementById("orderMobile").value;
         const orderPostcode = document.getElementById("sample6_postcode").value;
         const orderAdd = document.getElementById("sample6_address").value;
-        const lastSum = document.getElementById("lastSum").value;
+        const orderSum = document.getElementById("orderSum").value;
 
         var IMP = window.IMP; // 생략 가능
         IMP.init("imp97023940");
@@ -155,7 +155,7 @@
             pay_method: "card",
             merchant_uid: "merchant_" + new Date().getTime(),
             name: "상품 결제",
-            amount: lastSum,
+            amount: orderSum,
             // buyer_email: "gildong@gmail.com",
             buyer_name: orderName,
             buyer_tel: orderMobile,

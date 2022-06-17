@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class CartDTO {
     private Long id;
-    private String memberId;
+    private Long memberId;
     private Long goodsId;
     private int cartStock;
 

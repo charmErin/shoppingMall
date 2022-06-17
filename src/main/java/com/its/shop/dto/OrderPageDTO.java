@@ -17,6 +17,5 @@ public class OrderPageDTO {
     private int deliveryCharge = 3000;
     private String orderState;
     private Timestamp orderDate;
-
-    private OrderGoodsDTO orderGoodsDTO;
+    private int orderSum;
 }

@@ -17,6 +17,10 @@
         th {
             font-size: 20px;
         }
+
+        td:hover {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -26,24 +30,29 @@
     <table class="table">
         <tr>
             <th>NUM</th>
+            <th>RECEIVER</th>
             <th>DATE</th>
-            <th>ITEM</th>
             <th>QTY</th>
             <th>PRICE</th>
             <th>STATE</th>
         </tr>
 
-        <c:forEach var="order" items="${orderGoods}">
-            <tr>
-                <td>${order.id}</td>
-                <td>${order.orderDate}</td>
-                <td>주문상품</td>
-                <td>주문수량</td>
-                <td>주문금액</td>
-                <td>${order.orderState}</td>
+        <c:forEach var="order" items="${orderList}">
+            <tr onclick="orderListDetail('${order.orderId}','${order.goodsId}')">
+                <td>${order.orderId}</td>
+                <td>${order.orderPageDTO.orderName}</td>
+                <td>${order.orderPageDTO.orderDate}</td>
+                <td>${order.cartCount}</td>
+                <td>${order.orderPrice}</td>
+                <td>${order.orderPageDTO.orderState}</td>
             </tr>
         </c:forEach>
     </table>
 </div>
 </body>
+<script>
+    const orderListDetail = (id, goodsId) => {
+        location.href = "/order/detail?id=" + id + "&goodsId=" + goodsId;
+    }
+</script>
 </html>
