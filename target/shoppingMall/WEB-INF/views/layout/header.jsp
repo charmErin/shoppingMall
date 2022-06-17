@@ -67,7 +67,7 @@
                     <i onclick="toggleCondition()" class="bi bi-list"></i><br>
                     <ul id="toggleIcon">
                         <li onclick="orderList()">주문목록</li>
-                        <li>위시리스트</li>
+                        <li></li>
                         <li onclick="memberLogout()">로그아웃</li>
                     </ul>
                 </li>

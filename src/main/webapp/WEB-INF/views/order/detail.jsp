@@ -26,6 +26,10 @@
         hr {
             margin-top: 50px;
         }
+
+        .btn {
+            margin: 20px;
+        }
     </style>
 </head>
 <body>
@@ -33,6 +37,10 @@
 <div class="container col-4">
     <h2>주문 상세 정보</h2>
         <table class="table">
+            <tr>
+                <th>주문번호</th>
+                <td>${order.id}</td>
+            </tr>
             <tr>
                 <th>주문자</th>
                 <td>${sessionScope.memberName}</td>
@@ -56,7 +64,7 @@
                 <td>${order.deliveryMsg}</td>
             </tr>
             <tr>
-                <th>주문금액<br>(+배송비 3000원)</th>
+                <th>총 주문금액<br>(+배송비 3000원)</th>
                 <td>${order.orderSum}</td>
             </tr>
             <tr>
