@@ -30,37 +30,32 @@
     </resultMap>
 
     <insert id="save" parameterType="orderPage">
-        insert into chick_orderPage (memberId, orderName, orderZipCode, orderAddress, orderAddDetail ,orderMobile, deliveryMsg)
-            values (#{memberId}, #{orderName}, #{orderZipCode}, #{orderAddress}, #{orderAddDetail}, #{orderMobile}, #{deliveryMsg})
+        insert into chick_orderPage (memberId, orderName, orderZipCode, orderAddress, orderAddDetail ,orderMobile, deliveryMsg, orderSum)
+            values (#{memberId}, #{orderName}, #{orderZipCode}, #{orderAddress}, #{orderAddDetail}, #{orderMobile}, #{deliveryMsg}, #{orderSum})
     <selectKey resultType="Long" keyProperty="id" order="AFTER">
         select last_insert_id()
     </selectKey>
     </insert>
 
-    <select id="findAll" parameterType="String" resultMap="orderPage">
-        select p.*, g.orderId, g.goodsId, g.orderPrice from chick_orderpage p, chick_orderGoods g where p.id=g.orderid and p.memberId=#{memberId} order by p.id desc
+    <select id="findAll" parameterType="Long" resultMap="orderGoods">
+        select p.orderName, p.orderState, p.orderDate, g.orderId, g.goodsId, g.cartCount, g.orderPrice
+            from chick_orderpage p, chick_orderGoods g, chick_goods d
+                where p.id=g.orderId
+                        and p.memberId=#{memberId} order by g.id desc
     </select>
 
-    <resultMap type="orderGoods" id="orderGoodsDTO">
-        <result column="id" property="id"/>
-        <result column="orderId" property="orderId"/>
-        <result column="goodsId" property="goodsId"/>
-        <result column="orderCount" property="orderCount"/>
-        <result column="orderPrice" property="orderPrice"/>
-    </resultMap>
-
-    <resultMap type="orderPage" id="orderPage">
-        <result column="id" property="id"/>
-        <result column="memberId" property="memberId"/>
-        <result column="orderZipCode" property="orderZipCode"/>
-        <result column="orderAddress" property="orderAddress"/>
-        <result column="orderAddDetail" property="orderAddDetail"/>
-        <result column="orderMobile" property="orderMobile"/>
-        <result column="deliveryMsg" property="deliveryMsg"/>
-        <result column="deliveryCharge" property="deliveryCharge"/>
+    <resultMap type="orderPage" id="orderPageDTO">
+        <result column="orderName" property="orderName"/>
         <result column="orderState" property="orderState"/>
         <result column="orderDate" property="orderDate"/>
-        <collection property="orderGoodsDTO" resultMap="orderGoodsDTO"/>
+    </resultMap>
+
+    <resultMap type="orderGoods" id="orderGoods">
+        <result column="orderId" property="orderId"/>
+        <result column="goodsId" property="goodsId"/>
+        <result column="cartCount" property="cartCount"/>
+        <result column="orderPrice" property="orderPrice"/>
+        <collection property="orderPageDTO" resultMap="orderPageDTO"/>
     </resultMap>
 
     <insert id="orderGoods" parameterType="java.util.HashMap">
@@ -68,4 +63,11 @@
             values (#{memberId}, #{orderId}, #{goodsId}, #{cartStock}, #{orderPrice})
     </insert>
 
+    <select id="findOrder" parameterType="Long" resultType="orderPage">
+        select * from chick_orderPage where id=#{id}
+    </select>
+
+    <select id="findGoods" parameterType="java.util.HashMap" resultType="orderGoods">
+        select * from chick_orderGoods where orderId=#{orderId} and goodsId=#{goodsId}
+    </select>
 </mapper>

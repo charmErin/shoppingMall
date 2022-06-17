@@ -14,7 +14,23 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <link rel="stylesheet" type="text/css" href="../../../resources/css/detail.css">
+    <link rel="stylesheet" type="text/css" href="../../../resources/css/bootstrap.min.css">
     <title>CHICK</title>
+    <style>
+        .item_title {
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        .item_detail {
+            font-size: 30px;
+        }
+
+        .item_price {
+            text-align: end;
+            font-size: 28px;
+        }
+    </style>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
@@ -24,21 +40,24 @@
             <img src="${pageContext.request.contextPath}/upload/${goods.goodsFileName2}" height="700" width="700">
         </div>
         <div class="contents1">
-            ${goods.goodsName}<br>
+            <p class="item_title">${goods.goodsName}</p>
+            <p class="item_detail">${goods.goodsDetail}</p>
                 <c:choose>
                     <c:when test="${goods.goodsDiscount ne 0.0}">
-                        ${goods.goodsPrice * (1-goods.goodsDiscount)}원
+                        <p class="item_price">${goods.goodsPrice * (1-goods.goodsDiscount)}원</p>
                     </c:when>
                     <c:otherwise>
-                        ${goods.goodsPrice}원
+                        <p class="item_price">${goods.goodsPrice}원</p>
                     </c:otherwise>
                 </c:choose>
-                ${goods.goodsDetail}
+
                 <c:if test="${sessionScope.memberName eq '관리자'}">
                     <button onclick="goodsUpdate()">수정</button>
                     <button onclick="goodsDelete('${goods.goodsCategory}', '${goods.id}')">삭제</button>
                 </c:if>
-            <h1 onclick="cartAdd()">장바구니추가</h1>
+            <div class="d-md-flex justify-content-md-end">
+                <button class="btn btn-secondary" onclick="cartAdd()">장바구니추가</button>
+            </div>
         </div>
     </div>
 
@@ -50,6 +69,7 @@
 
         <li class="li_title">
             <span onclick="goodsReview()">상품리뷰</span><br>
+            <button class="btn btn-warning d-grid mx-auto" onclick="reviewSave()">리뷰작성</button>
             <div id="reviewOne">
                 <c:forEach var="review" items="${reviewList}">
                         회원아이디: ${review.memberId}<br>
@@ -59,10 +79,10 @@
                         <i id="icon0_${review.id}" onclick="reviewHitsUp('${goods.id}', '${review.id}', '${sessionScope.memberId}')" class="bi bi-hand-thumbs-up"></i>
                         <i id="icon1_${review.id}" onclick="reviewHitsDown('${goods.id}', '${review.id}', '${sessionScope.memberId}')" class="bi bi-hand-thumbs-down"></i><br>
                         <c:if test="${sessionScope.memberId eq review.memberId}">
-                            <button onclick="reviewUpdate('${review.goodsId}', '${review.id}','${review.reviewContents}')">리뷰수정</button>
-                            <button onclick="reviewDelete('${review.goodsId}', '${review.id}')">리뷰삭제</button>
+                            <button class="btn btn-outline-dark" onclick="reviewUpdate('${review.goodsId}', '${review.id}','${review.reviewContents}')">리뷰수정</button>
+                            <button class="btn btn-outline-dark" onclick="reviewDelete('${review.goodsId}', '${review.id}')">리뷰삭제</button>
                         </c:if>
-                    <br>
+                    <br><br>
                 </c:forEach>
             </div>
         </li>
@@ -72,8 +92,6 @@
         </li>
     </ul>
     <p id="inner"></p>
-    <h1></h1>
-    <h1 onclick="reviewSave()">리뷰작성</h1>
 
 </body>
 <script>
@@ -131,8 +149,8 @@
                     output += '<i id="icon0_' + result[i].id + '"' + ' onclick="reviewHitsUp2(' + goodsId + ',' + result[i].id + ',' + "'${sessionScope.memberId}'" + ')" class="bi bi-hand-thumbs-up"></i> ';
                     output += '<i id="icon1_' + result[i].id + '"' + ' onclick="reviewHitsDown2(' + goodsId + ',' + result[i].id + ',' + "'${sessionScope.memberId}'" + ')" class="bi bi-hand-thumbs-down"></i><br>';
                     if ('${sessionScope.memberId}' == result[i].memberId) {
-                        output += '<button onclick="reviewUpdate(' + '${goods.id}' + ',' + result[i].id + ',' + "'" + result[i].reviewContents + "'" + ')">리뷰수정</button>';
-                        output += '<button onclick="reviewDelete(' + '${goods.id}' + ',' + result[i].id + ')">리뷰삭제</button><br>';
+                        output += '<button class="btn btn-outline-dark" onclick="reviewUpdate(' + '${goods.id}' + ',' + result[i].id + ',' + "'" + result[i].reviewContents + "'" + ')">리뷰수정</button>';
+                        output += '<button class="btn btn-outline-dark" onclick="reviewDelete(' + '${goods.id}' + ',' + result[i].id + ')">리뷰삭제</button><br>';
                     }
                     output += '<br>';
                 }
@@ -172,8 +190,8 @@
                     output += '<i id="icon0_' + result[i].id + '"' + ' onclick="reviewHitsUp2(' + goodsId + ',' + result[i].id + ',' + "'${sessionScope.memberId}'" + ')" class="bi bi-hand-thumbs-up"></i> ';
                     output += '<i id="icon1_' + result[i].id + '"' + ' onclick="reviewHitsDown2(' + goodsId + ',' + result[i].id + ',' + "'${sessionScope.memberId}'" + ')" class="bi bi-hand-thumbs-down"></i><br>';
                     if ('${sessionScope.memberId}' == result[i].memberId) {
-                        output += '<button onclick="reviewUpdate(' + '${goods.id}' + ',' + result[i].id + ',' + "'" + result[i].reviewContents + "'" + ')">리뷰수정</button>';
-                        output += '<button onclick="reviewDelete(' + '${goods.id}' + ',' + result[i].id + ')">리뷰삭제</button><br>';
+                        output += '<button class="btn btn-outline-dark" onclick="reviewUpdate(' + '${goods.id}' + ',' + result[i].id + ',' + "'" + result[i].reviewContents + "'" + ')">리뷰수정</button>';
+                        output += '<button class="btn btn-outline-dark" onclick="reviewDelete(' + '${goods.id}' + ',' + result[i].id + ')">리뷰삭제</button><br>';
                     }
                     output += '<br>';
                 }
@@ -213,8 +231,8 @@
                     output += '<i id="icon0_' + result[i].id + '"' + ' onclick="reviewHitsUp(' + goodsId + ',' + result[i].id + ',' + "'${sessionScope.memberId}'" + ')" class="bi bi-hand-thumbs-up"></i> ';
                     output += '<i id="icon1_' + result[i].id + '"' + ' onclick="reviewHitsDown(' + goodsId + ',' + result[i].id + ',' + "'${sessionScope.memberId}'" + ')" class="bi bi-hand-thumbs-down"></i><br>';
                     if ('${sessionScope.memberId}' == result[i].memberId) {
-                        output += '<button onclick="reviewUpdate(' + '${goods.id}' + ',' + result[i].id + ',' + "'" + result[i].reviewContents + "'" + ')">리뷰수정</button>';
-                        output += '<button onclick="reviewDelete(' + '${goods.id}' + ',' + result[i].id + ')">리뷰삭제</button><br>';
+                        output += '<button class="btn btn-outline-dark" onclick="reviewUpdate(' + '${goods.id}' + ',' + result[i].id + ',' + "'" + result[i].reviewContents + "'" + ')">리뷰수정</button>';
+                        output += '<button class="btn btn-outline-dark" onclick="reviewDelete(' + '${goods.id}' + ',' + result[i].id + ')">리뷰삭제</button><br>';
                     }
                     output += '<br>';
                 }
@@ -253,8 +271,8 @@
                     output += '<i id="icon0_' + result[i].id + '"' + ' onclick="reviewHitsUp(' + goodsId + ',' + result[i].id + ',' + "'${sessionScope.memberId}'" + ')" class="bi bi-hand-thumbs-up"></i> ';
                     output += '<i id="icon1_' + result[i].id + '"' + ' onclick="reviewHitsDown(' + goodsId + ',' + result[i].id + ',' + "'${sessionScope.memberId}'" + ')" class="bi bi-hand-thumbs-down"></i><br>';
                     if ('${sessionScope.memberId}' == result[i].memberId) {
-                        output += '<button onclick="reviewUpdate(' + '${goods.id}' + ',' + result[i].id + ',' + "'" + result[i].reviewContents + "'" + ')">리뷰수정</button>';
-                        output += '<button onclick="reviewDelete(' + '${goods.id}' + ',' + result[i].id + ')">리뷰삭제</button><br>';
+                        output += '<button class="btn btn-outline-dark" onclick="reviewUpdate(' + '${goods.id}' + ',' + result[i].id + ',' + "'" + result[i].reviewContents + "'" + ')">리뷰수정</button>';
+                        output += '<button class="btn btn-outline-dark" onclick="reviewDelete(' + '${goods.id}' + ',' + result[i].id + ')">리뷰삭제</button><br>';
                     }
                     output += '<br>';
                 }
@@ -270,6 +288,7 @@
     }
 
     const cartAdd = () => {
+        alert("장바구니에 추가되었습니다.");
         location.href = "/cart/save?goodsId=${goods.id}";
     }
 

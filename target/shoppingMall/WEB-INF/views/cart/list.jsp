@@ -20,6 +20,10 @@
             text-align: center;
             font-size: 20px;
         }
+
+        a {
+            text-decoration-line: none !important;
+        }
     </style>
 </head>
 <body>
@@ -64,7 +68,7 @@
             </tr>
         </c:forEach>
     </table>
-</div>
+
     <c:choose>
         <c:when test="${cartList.isEmpty()}">
             <div class="no_cartList">
@@ -78,6 +82,7 @@
 
         </c:otherwise>
     </c:choose>
+</div>
 </div>
 
 </body>
@@ -116,6 +121,12 @@
                         output += '<td>' + (result[i].goodsDTO.goodsPrice * result[i].cartStock) + '원</td>';
                     }
                     output += '<td>' + '<button class="btn btn-outline-dark btn-sm" onclick="cartDelete(' + result[i].goodsDTO.id + ')">삭제</button></td></tr>';
+                    if (result[i].isEmpty()) {
+                        output += '<div class="no_cartList">장바구니에 담은 상품이 없습니다.</div>';
+                    } else {
+                        output += '<div class="d-flex justify-content-end"><button class="btn btn-outline-primary" onclick="orderGo()">주문하기</button></div>';
+                    }
+
                 }
                 cartList.innerHTML = output;
             }
@@ -155,6 +166,11 @@
                         output += '<td>' + (result[i].goodsDTO.goodsPrice * result[i].cartStock) + '원</td>';
                     }
                     output += '<td>' + '<button class="btn btn-outline-dark btn-sm" onclick="cartDelete(' + result[i].goodsDTO.id + ')">삭제</button></td></tr>';
+                    if (result[i].isEmpty()) {
+                        output += '<div class="no_cartList">장바구니에 담은 상품이 없습니다.</div>';
+                    } else {
+                        output += '<div class="d-flex justify-content-end"><button class="btn btn-outline-primary" onclick="orderGo()">주문하기</button></div>';
+                    }
                 }
                 cartList.innerHTML = output;
             }

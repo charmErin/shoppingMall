@@ -14,7 +14,7 @@
     </select>
 
     <select id="findAll" resultType="member">
-        select * from chick_member where memberId NOT IN ("admin")
+        select * from chick_member where memberId NOT IN ("admin") order by id
     </select>
 
     <select id="findById" parameterType="Long" resultType="member">
