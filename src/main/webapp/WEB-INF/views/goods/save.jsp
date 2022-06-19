@@ -16,6 +16,10 @@
             margin-bottom: 50px;
         }
 
+        a {
+            text-decoration-line: none !important;
+        }
+
         input {
             margin-bottom: 20px;
         }

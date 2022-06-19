@@ -34,7 +34,6 @@ public class OrderController {
     public @ResponseBody String saveForm(@RequestParam(value="goodsIdArray[]") List<Long> goodsIdArray, Model model) {
         goodsIdList = goodsIdArray;
         cartDTOList = orderService.goodsList(goodsIdList);
-        System.out.println(cartDTOList + "\n");
         return "ok";
     }
 

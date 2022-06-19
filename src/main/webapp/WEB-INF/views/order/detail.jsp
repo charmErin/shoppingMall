@@ -30,6 +30,10 @@
         .btn {
             margin: 20px;
         }
+
+        a {
+            text-decoration-line: none !important;
+        }
     </style>
 </head>
 <body>

@@ -23,7 +23,7 @@ public class GoodsService {
         MultipartFile goodsFile1 = goodsDTO.getGoodsFile1();
         String goodsFileName1 = goodsFile1.getOriginalFilename();
         goodsFileName1 = System.currentTimeMillis() + "-" + goodsFileName1;
-        String savePath1 = "D:\\shop_img\\" + goodsFileName1;
+        String savePath1 = "C:\\shop_img\\" + goodsFileName1;
 
         if (!goodsFile1.isEmpty()){
             goodsFile1.transferTo(new File(savePath1));
@@ -33,7 +33,7 @@ public class GoodsService {
         MultipartFile goodsFile2 = goodsDTO.getGoodsFile2();
         String goodsFileName2 = goodsFile2.getOriginalFilename();
         goodsFileName2 = System.currentTimeMillis() + "-" + goodsFileName2;
-        String savePath2 = "D:\\shop_img\\" + goodsFileName2;
+        String savePath2 = "C:\\shop_img\\" + goodsFileName2;
 
         if (!goodsFile2.isEmpty()){
             goodsFile2.transferTo(new File(savePath2));
@@ -55,7 +55,7 @@ public class GoodsService {
         MultipartFile goodsFile1 = goodsDTO.getGoodsFile1();
         String goodsFileName1 = goodsFile1.getOriginalFilename();
         goodsFileName1 = System.currentTimeMillis() + "-" + goodsFileName1;
-        String savePath1 = "D:\\shop_img\\" + goodsFileName1;
+        String savePath1 = "C:\\shop_img\\" + goodsFileName1;
 
         if (!goodsFile1.isEmpty()){
             goodsFile1.transferTo(new File(savePath1));
@@ -65,7 +65,7 @@ public class GoodsService {
         MultipartFile goodsFile2 = goodsDTO.getGoodsFile2();
         String goodsFileName2 = goodsFile2.getOriginalFilename();
         goodsFileName2 = System.currentTimeMillis() + "-" + goodsFileName2;
-        String savePath2 = "D:\\shop_img\\" + goodsFileName2;
+        String savePath2 = "C:\\shop_img\\" + goodsFileName2;
 
         if (!goodsFile2.isEmpty()){
             goodsFile2.transferTo(new File(savePath2));

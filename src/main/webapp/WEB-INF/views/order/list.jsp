@@ -21,13 +21,17 @@
         td:hover {
             cursor: pointer;
         }
+
+        a {
+            text-decoration-line: none !important;
+        }
     </style>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
 <div class="container">
     <h2>주문목록</h2>
-    <table class="table">
+    <table class="table table-hover">
         <tr>
             <th>NUM</th>
             <th>RECEIVER</th>

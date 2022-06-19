@@ -66,6 +66,7 @@
 
     const memberDelete = () => {
         if (confirm("탈퇴하시겠습니까?")){
+            alert("탈퇴가 완료되었습니다.");
             location.href = "/member/delete?id=${member.id}";
         }
     }

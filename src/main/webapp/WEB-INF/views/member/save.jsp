@@ -24,6 +24,10 @@
         #icon0 {
             margin-top: 5px;
         }
+
+         a {
+             text-decoration-line: none !important;
+         }
     </style>
 </head>
 <body>
@@ -196,6 +200,7 @@
     }
 
     function mSave() {
+        alert("chick 회원이 되신걸 축하합니다.\n회원가입이 완료되었습니다.");
         saveForm.submit();
     }
 </script>

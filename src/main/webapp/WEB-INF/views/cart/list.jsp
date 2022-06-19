@@ -24,6 +24,10 @@
         a {
             text-decoration-line: none !important;
         }
+
+        i:hover {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -88,7 +92,7 @@
 </body>
 <script>
     const cartCountPlus = (goodsId) => {
-        const memberId = '${sessionScope.memberId}';
+        const memberId = '${sessionScope.id}';
         const cartList = document.getElementById("cart-list");
 
         $.ajax({
@@ -121,20 +125,22 @@
                         output += '<td>' + (result[i].goodsDTO.goodsPrice * result[i].cartStock) + '원</td>';
                     }
                     output += '<td>' + '<button class="btn btn-outline-dark btn-sm" onclick="cartDelete(' + result[i].goodsDTO.id + ')">삭제</button></td></tr>';
-                    if (result[i].isEmpty()) {
-                        output += '<div class="no_cartList">장바구니에 담은 상품이 없습니다.</div>';
-                    } else {
-                        output += '<div class="d-flex justify-content-end"><button class="btn btn-outline-primary" onclick="orderGo()">주문하기</button></div>';
-                    }
-
                 }
+                output += '</table>';
+
+                if (result.length== 0) {
+                    output += '<div class="no_cartList">장바구니에 담은 상품이 없습니다.</div>';
+                } else {
+                    output += '<div class="d-flex justify-content-end"><button class="btn btn-outline-primary" onclick="orderGo()">주문하기</button></div>';
+                }
+
                 cartList.innerHTML = output;
             }
         });
     }
 
     const cartCountMinus  = (goodsId) => {
-        const memberId = '${sessionScope.memberId}';
+        const memberId = '${sessionScope.id}';
         const cartList = document.getElementById("cart-list");
 
         $.ajax({
@@ -166,12 +172,14 @@
                         output += '<td>' + (result[i].goodsDTO.goodsPrice * result[i].cartStock) + '원</td>';
                     }
                     output += '<td>' + '<button class="btn btn-outline-dark btn-sm" onclick="cartDelete(' + result[i].goodsDTO.id + ')">삭제</button></td></tr>';
-                    if (result[i].isEmpty()) {
-                        output += '<div class="no_cartList">장바구니에 담은 상품이 없습니다.</div>';
-                    } else {
-                        output += '<div class="d-flex justify-content-end"><button class="btn btn-outline-primary" onclick="orderGo()">주문하기</button></div>';
-                    }
                 }
+                output += '</table>';
+                if (result.length== 0) {
+                    output += '<div class="no_cartList">장바구니에 담은 상품이 없습니다.</div>';
+                } else {
+                    output += '<div class="d-flex justify-content-end"><button class="btn btn-outline-primary" onclick="orderGo()">주문하기</button></div>';
+                }
+
                 cartList.innerHTML = output;
             }
         });

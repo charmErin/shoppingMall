@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/css/cart_order.css">
     <title>CHICK</title>
+    <style>
+        a {
+        text-decoration-line: none !important;
+        }
+    </style>
 </head>
 <body>
 <jsp:include page="../layout/header.jsp" flush="false"></jsp:include>
