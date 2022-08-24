@@ -16,6 +16,10 @@
             text-align: center;
             margin-bottom: 50px;
         }
+
+        a {
+            text-decoration-line: none !important;
+        }
     </style>
 </head>
 <body>
@@ -66,6 +70,7 @@
 
     const memberDelete = () => {
         if (confirm("탈퇴하시겠습니까?")){
+            alert("탈퇴가 완료되었습니다.");
             location.href = "/member/delete?id=${member.id}";
         }
     }

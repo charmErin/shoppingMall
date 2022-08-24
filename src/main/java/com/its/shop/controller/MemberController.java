@@ -30,7 +30,6 @@ public class MemberController {
 
     @PostMapping("/duplicate-check")
     public @ResponseBody String duplicateCheck(@RequestParam String memberId) {
-        System.out.println("memberId = " + memberId);
         return memberService.duplicateCheck(memberId);
     }
 

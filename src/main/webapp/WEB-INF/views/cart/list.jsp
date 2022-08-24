@@ -133,7 +133,6 @@
                 } else {
                     output += '<div class="d-flex justify-content-end"><button class="btn btn-outline-primary" onclick="orderGo()">주문하기</button></div>';
                 }
-
                 cartList.innerHTML = output;
             }
         });
@@ -157,7 +156,8 @@
 
                 for (let i in result) {
                     output += '<tr>' + '<td><input type="checkbox" name="goodsId" value="${cart.goodsDTO.id}">';
-                    output += '<img src="' + '${pageContext.request.contextPath}' + '/upload/' + result[i].goodsDTO.goodsFileName1 + '" height="120" width="120">' + '</td>';                    output += '<td>' + result[i].goodsDTO.goodsName + '</td>';
+                    output += '<img src="' + '${pageContext.request.contextPath}' + '/upload/' + result[i].goodsDTO.goodsFileName1 + '" height="120" width="120">' + '</td>';
+                    output += '<td>' + result[i].goodsDTO.goodsName + '</td>';
                     output += '<td class="cart-count">' + result[i].cartStock + '&nbsp;';
                     if (result[i].cartStock < result[i].goodsDTO.goodsStock) {
                         output += '<i onclick="cartCountPlus(' + result[i].goodsDTO.id + ')" class="bi bi-bag-plus"></i>&nbsp;';
@@ -179,7 +179,6 @@
                 } else {
                     output += '<div class="d-flex justify-content-end"><button class="btn btn-outline-primary" onclick="orderGo()">주문하기</button></div>';
                 }
-
                 cartList.innerHTML = output;
             }
         });
@@ -197,7 +196,6 @@
             $('input[name="goodsId"]:checked').each(function(){
                 goodsIdArray.push($(this).val());
             });
-            console.log(goodsIdArray[0]);
 
             $.ajax({
                 type: "get",

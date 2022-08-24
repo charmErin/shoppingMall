@@ -16,6 +16,10 @@
             text-align: center;
             margin-bottom: 50px;
         }
+
+        a {
+            text-decoration-line: none !important;
+        }
     </style>
 </head>
 <body>

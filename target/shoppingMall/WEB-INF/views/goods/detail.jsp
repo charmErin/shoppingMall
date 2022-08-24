@@ -17,6 +17,10 @@
     <link rel="stylesheet" type="text/css" href="../../../resources/css/bootstrap.min.css">
     <title>CHICK</title>
     <style>
+        a {
+            text-decoration-line: none !important;
+        }
+
         .item_title {
             font-size: 40px;
             font-weight: bold;
@@ -26,8 +30,20 @@
             font-size: 30px;
         }
 
-        .item_price {
+        .item_price0 {
             text-align: end;
+            font-size: 28px;
+        }
+
+        .item_price1 {
+            text-align: end;
+            font-size: 25px;
+            text-decoration-line: line-through;
+        }
+
+        .item_sale_price {
+            text-align: end;
+            color: orange;
             font-size: 28px;
         }
     </style>
@@ -43,21 +59,26 @@
             <p class="item_title">${goods.goodsName}</p>
             <p class="item_detail">${goods.goodsDetail}</p>
                 <c:choose>
-                    <c:when test="${goods.goodsDiscount ne 0.0}">
-                        <p class="item_price">${goods.goodsPrice * (1-goods.goodsDiscount)}원</p>
+                    <c:when test="${goods.goodsDiscount eq 0.0}">
+                        <p class="item_price0">${goods.goodsPrice}원</p>
                     </c:when>
                     <c:otherwise>
-                        <p class="item_price">${goods.goodsPrice}원</p>
+                        <p class="item_price1">${goods.goodsPrice}원</p>
+                        <p class="item_sale_price"><fmt:formatNumber type="number" pattern="0" value="${goods.goodsPrice * (1-goods.goodsDiscount)}"/>원</p>
                     </c:otherwise>
                 </c:choose>
 
                 <c:if test="${sessionScope.memberName eq '관리자'}">
-                    <button onclick="goodsUpdate()">수정</button>
-                    <button onclick="goodsDelete('${goods.goodsCategory}', '${goods.id}')">삭제</button>
+                    <div class="d-md-flex justify-content-md-end">
+                        <button class="btn btn-outline-primary" onclick="goodsUpdate()">상품수정</button>
+                        <button class="btn btn-outline-dark" onclick="goodsDelete('${goods.goodsCategory}', '${goods.id}')">삭제</button>
+                    </div>
                 </c:if>
-            <div class="d-md-flex justify-content-md-end">
-                <button class="btn btn-secondary" onclick="cartAdd()">장바구니추가</button>
-            </div>
+                <c:if test="${sessionScope.memberName ne '관리자'}">
+                    <div class="d-md-flex justify-content-md-end">
+                        <button class="btn btn-secondary" onclick="cartAdd()">장바구니추가</button>
+                    </div>
+                </c:if>
         </div>
     </div>
 
@@ -115,9 +136,8 @@
         reviewOne.innerHTML = "<form action='/review/update' method='post'>"
                                 + "<input type='hidden' name=goodsId value='" + goodsId + "'><br>"
                                 + "<input type='hidden' name=id value='" + id + "'><br>"
-                                + "<input type='text' name='reviewContents' value='" + reviewContents + "'><br>"
-                                + "<input type='submit' value='리뷰수정완료'></form>";
-
+                                + "<textarea class='form-control' type='text' name='reviewContents'>" + reviewContents + "</textarea><br>"
+                                + "<input class='btn btn-outline-warning' type='submit' value='리뷰수정완료'></form>";
     }
 
     const reviewDelete = (goodsId, id) => {

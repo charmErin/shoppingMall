@@ -24,6 +24,10 @@
         a {
             text-decoration-line: none !important;
         }
+
+        i:hover {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -88,7 +92,7 @@
 </body>
 <script>
     const cartCountPlus = (goodsId) => {
-        const memberId = '${sessionScope.memberId}';
+        const memberId = '${sessionScope.id}';
         const cartList = document.getElementById("cart-list");
 
         $.ajax({
@@ -121,12 +125,13 @@
                         output += '<td>' + (result[i].goodsDTO.goodsPrice * result[i].cartStock) + '원</td>';
                     }
                     output += '<td>' + '<button class="btn btn-outline-dark btn-sm" onclick="cartDelete(' + result[i].goodsDTO.id + ')">삭제</button></td></tr>';
-                    if (result[i].isEmpty()) {
-                        output += '<div class="no_cartList">장바구니에 담은 상품이 없습니다.</div>';
-                    } else {
-                        output += '<div class="d-flex justify-content-end"><button class="btn btn-outline-primary" onclick="orderGo()">주문하기</button></div>';
-                    }
+                }
+                output += '</table>';
 
+                if (result.length== 0) {
+                    output += '<div class="no_cartList">장바구니에 담은 상품이 없습니다.</div>';
+                } else {
+                    output += '<div class="d-flex justify-content-end"><button class="btn btn-outline-primary" onclick="orderGo()">주문하기</button></div>';
                 }
                 cartList.innerHTML = output;
             }
@@ -134,7 +139,7 @@
     }
 
     const cartCountMinus  = (goodsId) => {
-        const memberId = '${sessionScope.memberId}';
+        const memberId = '${sessionScope.id}';
         const cartList = document.getElementById("cart-list");
 
         $.ajax({
@@ -151,7 +156,8 @@
 
                 for (let i in result) {
                     output += '<tr>' + '<td><input type="checkbox" name="goodsId" value="${cart.goodsDTO.id}">';
-                    output += '<img src="' + '${pageContext.request.contextPath}' + '/upload/' + result[i].goodsDTO.goodsFileName1 + '" height="120" width="120">' + '</td>';                    output += '<td>' + result[i].goodsDTO.goodsName + '</td>';
+                    output += '<img src="' + '${pageContext.request.contextPath}' + '/upload/' + result[i].goodsDTO.goodsFileName1 + '" height="120" width="120">' + '</td>';
+                    output += '<td>' + result[i].goodsDTO.goodsName + '</td>';
                     output += '<td class="cart-count">' + result[i].cartStock + '&nbsp;';
                     if (result[i].cartStock < result[i].goodsDTO.goodsStock) {
                         output += '<i onclick="cartCountPlus(' + result[i].goodsDTO.id + ')" class="bi bi-bag-plus"></i>&nbsp;';
@@ -166,11 +172,12 @@
                         output += '<td>' + (result[i].goodsDTO.goodsPrice * result[i].cartStock) + '원</td>';
                     }
                     output += '<td>' + '<button class="btn btn-outline-dark btn-sm" onclick="cartDelete(' + result[i].goodsDTO.id + ')">삭제</button></td></tr>';
-                    if (result[i].isEmpty()) {
-                        output += '<div class="no_cartList">장바구니에 담은 상품이 없습니다.</div>';
-                    } else {
-                        output += '<div class="d-flex justify-content-end"><button class="btn btn-outline-primary" onclick="orderGo()">주문하기</button></div>';
-                    }
+                }
+                output += '</table>';
+                if (result.length== 0) {
+                    output += '<div class="no_cartList">장바구니에 담은 상품이 없습니다.</div>';
+                } else {
+                    output += '<div class="d-flex justify-content-end"><button class="btn btn-outline-primary" onclick="orderGo()">주문하기</button></div>';
                 }
                 cartList.innerHTML = output;
             }
@@ -189,7 +196,6 @@
             $('input[name="goodsId"]:checked').each(function(){
                 goodsIdArray.push($(this).val());
             });
-            console.log(goodsIdArray[0]);
 
             $.ajax({
                 type: "get",

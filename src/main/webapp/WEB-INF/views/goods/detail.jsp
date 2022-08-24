@@ -138,7 +138,6 @@
                                 + "<input type='hidden' name=id value='" + id + "'><br>"
                                 + "<textarea class='form-control' type='text' name='reviewContents'>" + reviewContents + "</textarea><br>"
                                 + "<input class='btn btn-outline-warning' type='submit' value='리뷰수정완료'></form>";
-
     }
 
     const reviewDelete = (goodsId, id) => {

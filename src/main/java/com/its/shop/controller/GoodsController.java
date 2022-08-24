@@ -32,7 +32,6 @@ public class GoodsController {
 
     @PostMapping("/save")
     public String save(@ModelAttribute GoodsDTO goodsDTO) throws IOException {
-        System.out.println("goodsDTO = " + goodsDTO);
         goodsService.save(goodsDTO);
         return "index";
     }
